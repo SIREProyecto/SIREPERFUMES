@@ -1,0 +1,163 @@
+﻿@model SIRE.Administracion.UI.MVC.Models.TipoProductoConsultaModel
+
+@{
+    ViewBag.Title = "Mantenimiento de Tipos de Producto: Búsqueda";
+    Layout = "~/Views/Shared/_LayoutMantenimiento.cshtml";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var mensajeUsuario = '@ViewBag.MensajeUsuario';
+        var mensajeTecnico = '@ViewBag.MensajeTecnico';
+        var tipoMensaje = '@ViewBag.TipoMensaje';
+
+        //MostrarMensaje(mensajeUsuario, mensajeTecnico, tipoMensaje);
+
+        window.parent.parent.dispararBloqueo();
+    });
+
+    var estadosDisponibles = 'EDITAR,ELIMINAR,ACTIVAR';
+    var mainTableContainer = "InstitucionTableContainer";
+
+    function IrEditar(llave, valor) {
+        window.parent.parent.dispararEditar(llave, valor);
+    }
+
+    function IrAccion(objetoAcciones) {
+        var key;
+
+        key = objetoAcciones.context.id;
+        value = objetoAcciones.parent().parent().attr("data-record-key")
+
+        var $row = $('#' + mainTableContainer).jtable('getRowByKey', value);
+
+        $('#' + mainTableContainer).jtable('selectRows', $row);
+
+        if (key == "btnEditar") {
+            IrEditar(key, value);
+        }
+
+        if (key == "btnEliminar") {
+
+            if (confirm(remplazarCaracteresEspeciales('El registro será eliminado. ¿Desea continuar?'))) {
+                $('#' + mainTableContainer).jtable('deleteRecord', {
+                    key: value,
+                    url: '@Url.Action("Eliminar")',
+                    success: function (data) {
+                        if (data.Result == "OK") {
+                            MostrarMensaje('El registro ha sido eliminado satisfactoriamente.', '', 'C')
+                        }
+                        else {
+                            MostrarMensaje('Ha ocurrido un problema no controlado al intentar eliminar el registro.', data.Message, 'E')
+                        }
+                    }
+                });
+            }
+        }
+
+        if (key == "btnActivar") {
+            if (confirm(remplazarCaracteresEspeciales('El registro será activado. ¿Desea continuar?'))) {
+                $('#' + mainTableContainer).jtable('deleteRecord', {
+                    key: value,
+                    url: '@Url.Action("Activar")',
+                    success: function (data) {
+                        if (data.Result == "OK") {
+                            MostrarMensaje('El registro ha sido activado satisfactoriamente.', '', 'C')
+                        }
+                        else {
+                            MostrarMensaje('Ha ocurrido un problema no controlado al intentar activar el registro.', data.Message, 'E')
+                        }
+                    }
+                });
+            }
+        }
+
+        objetoAcciones.val("");
+
+        return true;
+    }
+</script>
+
+@using (Ajax.BeginForm("Buscar", "TipoProducto", new AjaxOptions
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "searchResults"
+}))
+{
+    <table>
+        <tr>
+            <td>
+                <div>@Html.LabelFor(model => model.Descripcion)</div>
+            </td>
+
+            <td>
+                <div>@Html.TextBoxFor(model => model.Descripcion)</div>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td>
+                <div>
+                    <button id="btnBuscar" type="submit">Buscar</button>
+                    <button id="btnNuevo" onclick="IrEditar('Editar', 0)" >Nuevo</button>
+                    <button id="btnSalir">Salir</button>
+                </div>
+            </td>
+        </tr>
+    </table>
+}
+
+<div id="InstitucionTableContainer" class="contenedorGrid"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#' + mainTableContainer).jtable({
+            paging: true,
+            sorting: true,
+            pageSize: 10,
+            defaultSorting: '',
+            defaultDateFormat: 'dd/mm/yy',
+            actions: {
+                listAction: '@Url.Action("Buscar")'
+            },
+            fields: {
+                Acciones: {
+                    title: "Acciones",
+                    width: '10%',
+                    create: false,
+                    edit: false,
+                    visibility: "fixed",
+                    sorting: false,
+                    display: function (data) {
+                        return '<br />';
+                    }
+                },
+                Codigo: {
+                    key: true,
+                    width: '10%',
+                    title: "Código"
+                },
+                Descripcion: {
+                    key: false,
+                    width: '80%',
+                    title: "Descripción"
+                }
+            }
+        });
+
+        $('#btnBuscar').click(function (e) {
+            e.preventDefault();
+
+            $('#' + mainTableContainer).jtable('load', {
+                descripcion: $('#Descripcion').val()
+            });
+        });
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

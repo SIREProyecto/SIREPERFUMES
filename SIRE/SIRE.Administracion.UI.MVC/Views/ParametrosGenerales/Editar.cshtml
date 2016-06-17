@@ -1,0 +1,82 @@
+﻿@model SIRE.Administracion.UI.MVC.Models.Generales.ParametrosGeneralesModel
+@using SIRE.Administracion.UI.MVC.Utilitarios;
+
+@{
+    ViewBag.Title = "Mantenimiento de Parámetros Generales: Edición";
+    Layout = "~/Views/Shared/_LayoutMantenimiento.cshtml";
+}
+
+@using (Html.BeginForm())
+{  
+    <div hidden="hidden" class="ErrorDB" id="Mensaje1">
+        <img id="Imagen" src="~/Images/Valid.png">
+        @ViewBag.MesajeExito
+    </div>
+    <div id="Mensaje3" class="DetalleDB" hidden="hidden">Detalles</div>
+    <div class="ErrorDB" id="Men3" hidden="hidden">@ViewBag.MesajeTenico</div>  
+    
+    @Html.ValidationSummary(true)
+
+ 
+    <table>
+        <tr>
+            <td>
+                <div>
+                    @Html.LabelFor(model => model.CodParametroGeneral)
+                </div>
+            </td>
+            <td>
+                @Html.Label(Etiquetas.CAMPO_REQUERIDO, new { @class = "mensajeRequerido" })
+            </td>
+            <td>
+                <div>
+                    @Html.TextBoxFor(model => model.CodParametroGeneral, new { @clean = "true", maxlength = "6" })
+                    @Html.ValidationMessageFor(modelo => modelo.CodParametroGeneral)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.LabelFor(model => model.DesParametroGeneral)
+                </div>
+            </td>
+            <td>
+                @Html.Label(Etiquetas.CAMPO_REQUERIDO, new { @class = "mensajeRequerido" })
+            </td>
+            <td>
+                <div>
+                    @Html.TextBoxFor(model => model.DesParametroGeneral, new { @clean = "true", maxlength = "30" })
+                    @Html.ValidationMessageFor(modelo => modelo.DesParametroGeneral)
+                </div>
+            </td>
+        </tr>
+
+
+    </table>
+    <table>
+        <tr>
+            <td>
+                <br />
+                <div class="AlinIzq">
+                    <button type="submit" id="Salvar">Guardar</button>
+                    <button type="button" id="catalogo">Catálogo</button>
+                    <button type="button" id="Limpiar" onclick="LimpiarCampos()">Limpiar</button>
+
+                    @{
+    if (Model.CodParametroGeneral != null && Model.CodParametroGeneral != "")
+    {
+                        <button type="button" id="btnAuditoria" onclick="MostrarDatosDeAuditoria('@Model.UsrIngreso', '@Model.FecIngreso', '@Model.UsrModifico', '@Model.FecModifico')">Auditoría</button>
+    }
+                    }
+                </div>
+
+            </td>
+        </tr>
+    </table>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

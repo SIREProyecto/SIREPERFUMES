@@ -1,0 +1,12 @@
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\SIRE\SIRE.Administracion.Datos\bin\Debug\SIRE.Administracion.Datos.dll
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\SIRE\SIRE.Administracion.Datos\bin\Debug\SIRE.Administracion.Datos.pdb
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\SIRE\SIRE.Administracion.Datos\obj\Debug\SIRE.Administracion.Datos.dll
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\SIRE\SIRE.Administracion.Datos\obj\Debug\SIRE.Administracion.Datos.pdb
+C:\Users\Miriam\Documents\Proyecto\SIRE\SIRE.Administracion.Datos\bin\Debug\SIRE.Administracion.Datos.dll
+C:\Users\Miriam\Documents\Proyecto\SIRE\SIRE.Administracion.Datos\bin\Debug\SIRE.Administracion.Datos.pdb
+C:\Users\Miriam\Documents\Proyecto\SIRE\SIRE.Administracion.Datos\obj\Debug\SIRE.Administracion.Datos.dll
+C:\Users\Miriam\Documents\Proyecto\SIRE\SIRE.Administracion.Datos\obj\Debug\SIRE.Administracion.Datos.pdb
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Administracion.Datos\bin\Debug\SIRE.Administracion.Datos.dll
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Administracion.Datos\bin\Debug\SIRE.Administracion.Datos.pdb
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Administracion.Datos\obj\Debug\SIRE.Administracion.Datos.dll
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Administracion.Datos\obj\Debug\SIRE.Administracion.Datos.pdb

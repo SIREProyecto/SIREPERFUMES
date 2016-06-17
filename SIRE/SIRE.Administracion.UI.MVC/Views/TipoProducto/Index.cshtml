@@ -1,0 +1,54 @@
+﻿@using LiderSoft.UI.Web.Mvc.Controles.Tab
+@using LiderSoft.UI.Web.Mvc.Controles
+
+@{
+    ViewBag.TituloPagina = "Mantenimiento de Tipos de Producto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function dispararEditar(action, value) {
+        url = "@Url.Action("Editar")";
+
+        url = url + "?codigo=" + value;
+
+        lo = $("#Mantenimientoiframe_1");
+        lo.attr("src", url);
+
+        if (value == 0) {
+            $("#Mantenimiento").tabs({ disabled: [false, 2], selected: 1, cache: true, spinner: "Loading..." });
+        }
+        else {
+            $("#Mantenimiento").tabs({ disabled: false, selected: 1, cache: true, spinner: "Loading..." });
+        }
+    }
+
+    function dispararCancelar() {
+        $("#Mantenimiento").tabs({ selected: 0, cache: true, spinner: "Loading..." });
+
+        dispararBloqueo();
+    }
+
+
+    function dispararBloqueo() {
+        $("#Mantenimiento").tabs({ disabled: [false, 1], selected: 0, cache: true, spinner: "Loading..." });
+    }
+</script>
+
+<div class="container">
+    <div class="title-bar">
+        @ViewBag.TituloPagina
+    </div>
+
+    <div>
+        @Html.TabIframe(new TabControlIframe()
+            .SetCacheTabs(true)
+            .SetName("Mantenimiento")
+            .AddTabItem(new TabItemIframe()
+                .SetContent(ContentType.Iframe, Url.Action("Buscar", "TipoProducto"))
+                .SetTitle("Catálogo"))
+            .AddTabItem(new TabItemIframe()
+                .SetContent(ContentType.Iframe, Url.Action("Editar", "TipoProducto"))
+                .SetTitle("Mantenimiento")))
+    </div>
+</div>

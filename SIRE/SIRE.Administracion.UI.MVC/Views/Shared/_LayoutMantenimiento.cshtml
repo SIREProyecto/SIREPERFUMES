@@ -1,0 +1,204 @@
+﻿@using SIRE.Administracion.UI.MVC.Utilitarios;
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11">
+
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    @*<link href="~/Content/Bootstrap/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/Content/Bootstrap/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/Bootstrap/animate.min.css" rel="stylesheet" />
+    <link href="~/Content/Bootstrap/prettyPhoto.css" rel="stylesheet" />
+    <link href="~/Content/Bootstrap/main.css" rel="stylesheet" />
+    @*<link href="~/Content/Bootstrap/responsive.css" rel="stylesheet" />*@
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
+
+    <link href="@Url.Content("~/Scripts/jtable/themes/metro/blue/jtable.css")" rel="stylesheet" type="text/css" />
+
+    @Styles.Render("~/Content/Site.css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/Scripts/jquery-1.7.1.min.js")
+
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.24.js")" type="text/javascript"></script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jtable/jquery.jtable.js")"></script>
+    <script src="~/Scripts/jtable/localization/jquery.jtable.es.js"></script>
+</head>
+<body>
+    <header>
+@*        <div id="summary">
+            <div id="iconoMensaje"></div>
+            <div id="mensajeUsuario">
+                <label>Esto es un mensaje de prueba para mostrar un ejemplo</label>
+            </div>
+            <div id="mensajeTecnico">
+                <label>Esto es un mensaje de prueba para mostrar un ejemplo</label>
+            </div>
+        </div>*@
+
+        @*<script type="text/javascript">
+            $('#summary').hide();
+        </script>*@
+
+        @*<table>
+            <tr>
+                <td rowspan="2">[ÍCONO]</td>
+                <td>Este es un mensaje para el usuario.</td>
+            </tr>
+            <tr>
+                <td>Este es un mensaje con la información técnica de la situación presentada.</td>
+            </tr>
+        </table>*@
+        <script type="text/javascript">
+        $("#divMostrarDatosDeAuditoria").dialog({
+                autoOpen: false,
+                width: 400,
+                height: 230,
+                show: "fold",
+                hide: "fold",
+                modal: true,
+                buttons: {
+                    "Cerrar": function () {
+                        $(this).dialog("close");
+                    }
+                },
+                close: function () {
+                    return false;
+                },
+                beforeClose: function () {
+                    return true;
+                }
+        });
+
+        function LimpiarCampos() {
+            $('input').each(function () {
+                if (typeof ($(this).attr('clean')) == 'undefined' || $(this).attr('clean').toLowerCase() === 'true') {
+                    
+                    if ($(this).attr('type') == 'text' || $(this).attr('type') == 'textarea' || $(this).attr('type') == 'hidden') {
+                        $(this).val('');      
+                    }
+                    else if ($(this).attr('type') == 'checkbox') {
+                        $(this).attr('checked', false);
+                    }
+                }
+            });
+
+            $('select').each(function () {
+                var idSelect = $(this).attr('id');
+
+                if (typeof ($(this).attr('clean')) == 'undefined' || $(this).attr('clean').toLowerCase() === 'true') {
+                    $('#' + $(this).attr('id') + " option").each(function () {
+                        if ($(this).text() == '@Etiquetas.GenSeleccionar') {
+                            $('#' + idSelect).val('@Etiquetas.GenSeleccionar');
+
+                            return false;
+                        }
+                    });
+                }
+             });
+
+            $('textarea').each(function () {
+                var idSelect = $(this).attr('id');
+
+                if (typeof ($(this).attr('clean')) == 'undefined' || $(this).attr('clean').toLowerCase() === 'true') {
+                    $(this).val('');
+                }
+            });
+        }
+
+            function MostrarMensaje(mensajeUsuario, mensajeTecnico, tipoMensaje) {
+
+                if (tipoMensaje != "") {
+
+                    if (!tipoMensaje) {
+                        $('#iconoMensaje').addClass('C');
+                    }
+                    else if (tipoMensaje == 'A') {
+                        $('#iconoMensaje').addClass('precaucion');
+                    }
+                    else if (tipoMensaje == 'C') {
+                        $('#iconoMensaje').addClass('confirmacion');
+                    }
+                    else if (tipoMensaje == 'I') {
+                        $('#iconoMensaje').addClass('informacion');
+                    }
+                    else if (tipoMensaje == 'E') {
+                        $('#iconoMensaje').addClass('error');
+                    }
+
+                    if (!mensajeUsuario) {
+                        $('#pizarraMensaje').hide();
+                    }
+                    else {
+                        mensajeUsuario = mensajeUsuario.replace('&#193;', 'Á');
+                        mensajeUsuario = mensajeUsuario.replace('&#225;', 'á');
+
+                        mensajeUsuario = mensajeUsuario.replace('&#201;', 'É');
+                        mensajeUsuario = mensajeUsuario.replace('&#233;', 'é');
+
+                        mensajeUsuario = mensajeUsuario.replace('&#205;', 'Í');
+                        mensajeUsuario = mensajeUsuario.replace('&#237;', 'i');
+
+                        mensajeUsuario = mensajeUsuario.replace('&#211;', 'Ó');
+                        mensajeUsuario = mensajeUsuario.replace('&#243;', 'ó');
+
+                        mensajeUsuario = mensajeUsuario.replace('&#218;', 'Ú');
+                        mensajeUsuario = mensajeUsuario.replace('&#250;', 'ú');
+
+                        mensajeUsuario = mensajeUsuario.replace('&#209;', 'Ñ');
+                        mensajeUsuario = mensajeUsuario.replace('&#241;', 'ñ');
+
+                        mensajeUsuario = mensajeUsuario.replace('&#39;', "'");
+
+                        $('#mensajeUsuario').text(mensajeUsuario);
+                    }
+
+                    if (!mensajeTecnico) {
+                        $('#mensajeTecnico').text('');
+                    }
+                    else {
+                        $('#mensajeTecnico').text(mensajeTecnico);
+                        $('#iconoMensaje').addClass('error');
+                    }
+
+                    $('#pizarraMensaje').show();
+                }
+            }
+
+
+
+            function MostrarDatosDeAuditoria(usrIngreso, fecIngreso, usrModifico, fecModifico) {
+                $("#divMostrarDatosDeAuditoria").dialog('option', 'title', 'Auditoría');
+
+                $("#usrIngreso").text(usrIngreso);
+                $("#fecIngreso").text(fecIngreso);
+                $("#usrModifico").text(usrModifico);
+                $("#fecModifico").text(fecModifico);
+
+                $("#divMostrarDatosDeAuditoria").dialog("open");
+            }
+            </script>
+    </header>
+
+    <div>
+        @RenderSection("featured", required: false)
+    </div>
+
+    <div>
+        @RenderBody()
+    </div>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

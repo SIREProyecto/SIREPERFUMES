@@ -1,0 +1,21 @@
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\SIRE\SIRE.Administracion.Ds\bin\Debug\SIRE.Administracion.Ds.dll
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\SIRE\SIRE.Administracion.Ds\bin\Debug\SIRE.Administracion.Ds.pdb
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\SIRE\SIRE.Administracion.Ds\bin\Debug\SIRE.Administracion.Datos.dll
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\SIRE\SIRE.Administracion.Ds\bin\Debug\SIRE.Administracion.Datos.pdb
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\SIRE\SIRE.Administracion.Ds\obj\Debug\SIRE.Administracion.Ds.csprojResolveAssemblyReference.cache
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\SIRE\SIRE.Administracion.Ds\obj\Debug\SIRE.Administracion.Ds.dll
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\SIRE\SIRE.Administracion.Ds\obj\Debug\SIRE.Administracion.Ds.pdb
+C:\Users\Miriam\Documents\Proyecto\SIRE\SIRE.Administracion.Ds\bin\Debug\SIRE.Administracion.Ds.dll
+C:\Users\Miriam\Documents\Proyecto\SIRE\SIRE.Administracion.Ds\bin\Debug\SIRE.Administracion.Ds.pdb
+C:\Users\Miriam\Documents\Proyecto\SIRE\SIRE.Administracion.Ds\bin\Debug\SIRE.Administracion.Datos.dll
+C:\Users\Miriam\Documents\Proyecto\SIRE\SIRE.Administracion.Ds\bin\Debug\SIRE.Administracion.Datos.pdb
+C:\Users\Miriam\Documents\Proyecto\SIRE\SIRE.Administracion.Ds\obj\Debug\SIRE.Administracion.Ds.csprojResolveAssemblyReference.cache
+C:\Users\Miriam\Documents\Proyecto\SIRE\SIRE.Administracion.Ds\obj\Debug\SIRE.Administracion.Ds.dll
+C:\Users\Miriam\Documents\Proyecto\SIRE\SIRE.Administracion.Ds\obj\Debug\SIRE.Administracion.Ds.pdb
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Administracion.Ds\bin\Debug\SIRE.Administracion.Ds.dll
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Administracion.Ds\bin\Debug\SIRE.Administracion.Ds.pdb
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Administracion.Ds\bin\Debug\SIRE.Administracion.Datos.dll
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Administracion.Ds\bin\Debug\SIRE.Administracion.Datos.pdb
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Administracion.Ds\obj\Debug\SIRE.Administracion.Ds.csprojResolveAssemblyReference.cache
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Administracion.Ds\obj\Debug\SIRE.Administracion.Ds.dll
+C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Administracion.Ds\obj\Debug\SIRE.Administracion.Ds.pdb

@@ -106,84 +106,88 @@ div.jtable-main-container > div.jtable-bottom-panel{
     width: 100%;
 }
 
-    #summary #iconoMensaje {
-        background: transparent url('../Images/iconoInformacion.png') no-repeat 50% 55%;
-        background-size: 16px 16px;
-        width: 16px;
-        height: 16px;
-        max-width: 16px;
+#iconoMensaje {
+        
+    background: transparent url('../Images/iconoInformacion.png') no-repeat 50% 55%;
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+    max-width: 16px;
         max-height: 16px;
         position: absolute;
         opacity: 0.7;
         transition: all 0.3s linear;
     }
 
-    #summary #mensajeUsuario {
+    
+#mensajeUsuario {
         font-size: 14px;
         margin-left: 18px;
         padding-top: 0px;
     }
 
-    #summary #mensajeTecnico {
+    
+#mensajeTecnico {
         color: #666666;
         font-size: 12px;
         margin-left: 18px;
         padding-top: 0px;
         padding-bottom: 2px;
     }
+    
+    #iconoMensaje.informacion {
+        background-image: url('../Images/iconoInformacion.png');
+        background-color: #AAC6E8;
+    }
+
+    #iconoMensaje.precaucion {
+        background-image: url('../Images/iconoPrecaucion.png');
+    }
+
+    #iconoMensaje.confirmacion {
+        background-image: url('../Images/iconoConfirmacion.png');
+    }
+
+    #iconoMensaje.error {
+        background-image: url('../Images/iconoError.png');
+    }
+
+    #mensajeUsuario.informacion {
+        color: #0055B5;    
+    }
+
+    #summary.informacion {
+        border: 1px solid #AAC6E8;
+        background: #E9F9E5;
+    }
+
+    #mensajeUsuario.error {
+        color: #CE0007;    
+    }
 
     #summary.error {
         border: 1px solid #E8AAAD;
         background: #F9E5E6;
     }
-
-        #summary.error #mensajeUsuario {
-            color: #CE0007;
-        }
-
-        #summary.error #iconoMensaje {
-            background-image: url('../Images/iconoError.png');
-        }
+    
+    #mensajeUsuario.confirmacion {
+        color: #1C8400;  
+    }
 
     #summary.confirmacion {
         border: 1px solid #B4E8AA;
         background: #E9F9E5;
     }
-
-        #summary.confirmacion #mensajeUsuario {
-            color: #1C8400;
-        }
-
-        #summary.confirmacion #iconoMensaje {
-            background-image: url('../Images/iconoConfirmacion.png');
-        }
+         
+    #mensajeUsuario.precaucion {
+        color: #828400;  
+    }
 
     #summary.precaucion {
         border: 1px solid #E8E3AA;
         background: #F9F9E5;
     }
-
-        #summary.precaucion #mensajeUsuario {
-            color: #828400;
-        }
-
-        #summary.precaucion #iconoMensaje {
-        background-image: url('../Images/iconoPrecaucion.png');
-    }
-
-    #summary.informacion {
-        border: 1px solid #AAC6E8;
-    }
-
-        #summary.informacion #mensajeUsuario {
-            color: #0055B5;
-        }
-
-        #summary.informacion #iconoMensaje {
-            background-image: url('../Images/iconoInformacion.png');
-            background-color: #AAC6E8;
-        }
-
+    
     #summary:hover {
         box-shadow: 0px 1px 1px rgba(255,255,255,0.8) inset, 1px 1px 5px rgba(0,0,0,0.4);
     }

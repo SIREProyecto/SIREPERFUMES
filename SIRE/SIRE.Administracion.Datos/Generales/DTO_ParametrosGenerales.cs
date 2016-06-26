@@ -15,10 +15,22 @@ namespace SIRE.Administracion.Datos.Generales
 
         public string CodParametroGeneral { get; set; }    
         public string DesParametroGeneral { get; set; }
-        public byte Compania { get; set; }
+        //public byte Compania { get; set; }
 
         #endregion
-    
+
+        #region PrefijoCampos
+
+        public static string PrefijoCampos
+        {
+            get
+            {
+                return "Ins_";
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region [ Constructores ]

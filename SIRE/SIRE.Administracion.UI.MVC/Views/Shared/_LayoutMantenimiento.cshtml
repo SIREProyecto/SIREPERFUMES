@@ -37,20 +37,34 @@
 </head>
 <body>
     <header>
-@*        <div id="summary">
+        <div id="summary">
             <div id="iconoMensaje"></div>
-            <div id="mensajeUsuario">
-                <label>Esto es un mensaje de prueba para mostrar un ejemplo</label>
-            </div>
-            <div id="mensajeTecnico">
-                <label>Esto es un mensaje de prueba para mostrar un ejemplo</label>
-            </div>
-        </div>*@
+                <div id="mensajeUsuario">
+                    <label></label>
+                </div>
+                <div id="mensajeTecnico">
+                    <label></label>
 
-        @*<script type="text/javascript">
+                </div>
+        </div>
+
+        <script type="text/javascript">
             $('#summary').hide();
-        </script>*@
+        </script>
 
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                setTimeout(function () {
+
+                    $("#summary").fadeOut(1500);
+
+                }, 3000);
+
+            });
+
+        </script>
         @*<table>
             <tr>
                 <td rowspan="2">[ÍCONO]</td>
@@ -61,52 +75,32 @@
             </tr>
         </table>*@
         <script type="text/javascript">
-        $("#divMostrarDatosDeAuditoria").dialog({
-                autoOpen: false,
-                width: 400,
-                height: 230,
-                show: "fold",
-                hide: "fold",
-                modal: true,
-                buttons: {
-                    "Cerrar": function () {
-                        $(this).dialog("close");
-                    }
-                },
-                close: function () {
-                    return false;
-                },
-                beforeClose: function () {
-                    return true;
-                }
-        });
+            function LimpiarCampos() {
+                $('input').each(function () {
+                    if (typeof ($(this).attr('clean')) == 'undefined' || $(this).attr('clean').toLowerCase() === 'true') {
 
-        function LimpiarCampos() {
-            $('input').each(function () {
-                if (typeof ($(this).attr('clean')) == 'undefined' || $(this).attr('clean').toLowerCase() === 'true') {
-                    
-                    if ($(this).attr('type') == 'text' || $(this).attr('type') == 'textarea' || $(this).attr('type') == 'hidden') {
-                        $(this).val('');      
+                        if ($(this).attr('type') == 'text' || $(this).attr('type') == 'textarea' || $(this).attr('type') == 'hidden') {
+                            $(this).val('');
+                        }
+                        else if ($(this).attr('type') == 'checkbox') {
+                            $(this).attr('checked', false);
+                        }
                     }
-                    else if ($(this).attr('type') == 'checkbox') {
-                        $(this).attr('checked', false);
-                    }
-                }
-            });
+                });
 
-            $('select').each(function () {
-                var idSelect = $(this).attr('id');
+                $('select').each(function () {
+                    var idSelect = $(this).attr('id');
 
-                if (typeof ($(this).attr('clean')) == 'undefined' || $(this).attr('clean').toLowerCase() === 'true') {
-                    $('#' + $(this).attr('id') + " option").each(function () {
-                        if ($(this).text() == '@Etiquetas.GenSeleccionar') {
+                    if (typeof ($(this).attr('clean')) == 'undefined' || $(this).attr('clean').toLowerCase() === 'true') {
+                        $('#' + $(this).attr('id') + " option").each(function () {
+                            if ($(this).text() == '@Etiquetas.GenSeleccionar') {
                             $('#' + idSelect).val('@Etiquetas.GenSeleccionar');
 
                             return false;
                         }
                     });
                 }
-             });
+            });
 
             $('textarea').each(function () {
                 var idSelect = $(this).attr('id');
@@ -117,88 +111,161 @@
             });
         }
 
-            function MostrarMensaje(mensajeUsuario, mensajeTecnico, tipoMensaje) {
+        function MostrarMensaje(mensajeUsuario, mensajeTecnico, tipoMensaje) {
 
-                if (tipoMensaje != "") {
+            if (tipoMensaje != "") {
 
-                    if (!tipoMensaje) {
-                        $('#iconoMensaje').addClass('C');
-                    }
-                    else if (tipoMensaje == 'A') {
-                        $('#iconoMensaje').addClass('precaucion');
-                    }
-                    else if (tipoMensaje == 'C') {
-                        $('#iconoMensaje').addClass('confirmacion');
-                    }
-                    else if (tipoMensaje == 'I') {
-                        $('#iconoMensaje').addClass('informacion');
-                    }
-                    else if (tipoMensaje == 'E') {
-                        $('#iconoMensaje').addClass('error');
-                    }
-
-                    if (!mensajeUsuario) {
-                        $('#pizarraMensaje').hide();
-                    }
-                    else {
-                        mensajeUsuario = mensajeUsuario.replace('&#193;', 'Á');
-                        mensajeUsuario = mensajeUsuario.replace('&#225;', 'á');
-
-                        mensajeUsuario = mensajeUsuario.replace('&#201;', 'É');
-                        mensajeUsuario = mensajeUsuario.replace('&#233;', 'é');
-
-                        mensajeUsuario = mensajeUsuario.replace('&#205;', 'Í');
-                        mensajeUsuario = mensajeUsuario.replace('&#237;', 'i');
-
-                        mensajeUsuario = mensajeUsuario.replace('&#211;', 'Ó');
-                        mensajeUsuario = mensajeUsuario.replace('&#243;', 'ó');
-
-                        mensajeUsuario = mensajeUsuario.replace('&#218;', 'Ú');
-                        mensajeUsuario = mensajeUsuario.replace('&#250;', 'ú');
-
-                        mensajeUsuario = mensajeUsuario.replace('&#209;', 'Ñ');
-                        mensajeUsuario = mensajeUsuario.replace('&#241;', 'ñ');
-
-                        mensajeUsuario = mensajeUsuario.replace('&#39;', "'");
-
-                        $('#mensajeUsuario').text(mensajeUsuario);
-                    }
-
-                    if (!mensajeTecnico) {
-                        $('#mensajeTecnico').text('');
-                    }
-                    else {
-                        $('#mensajeTecnico').text(mensajeTecnico);
-                        $('#iconoMensaje').addClass('error');
-                    }
-
-                    $('#pizarraMensaje').show();
+                if (!tipoMensaje) {
+                    $('#iconoMensaje').addClass('C');
                 }
+                else if (tipoMensaje == 'A') {
+                    $('#iconoMensaje').addClass('precaucion');
+                }
+                else if (tipoMensaje == 'C') {
+                    $('#iconoMensaje').addClass('confirmacion');
+                    $('#mensajeUsuario').addClass('confirmacion');
+                    $('#summary').addClass('confirmacion');
+                }
+                else if (tipoMensaje == 'I') {
+                    $('#iconoMensaje').addClass('informacion');
+                    $('#mensajeUsuario').addClass('informacion');
+                    $('#summary').addClass('informacion');
+                }
+                else if (tipoMensaje == 'E') {
+                    $('#iconoMensaje').addClass('error');
+                    $('#mensajeUsuario').addClass('error');
+                    $('#summary').addClass('error');
+                }
+
+                if (!mensajeUsuario) {
+                    $('#summary').hide();
+                }
+                else {
+                    mensajeUsuario = mensajeUsuario.replace('&#193;', 'Á');
+                    mensajeUsuario = mensajeUsuario.replace('&#225;', 'á');
+
+                    mensajeUsuario = mensajeUsuario.replace('&#201;', 'É');
+                    mensajeUsuario = mensajeUsuario.replace('&#233;', 'é');
+
+                    mensajeUsuario = mensajeUsuario.replace('&#205;', 'Í');
+                    mensajeUsuario = mensajeUsuario.replace('&#237;', 'i');
+
+                    mensajeUsuario = mensajeUsuario.replace('&#211;', 'Ó');
+                    mensajeUsuario = mensajeUsuario.replace('&#243;', 'ó');
+
+                    mensajeUsuario = mensajeUsuario.replace('&#218;', 'Ú');
+                    mensajeUsuario = mensajeUsuario.replace('&#250;', 'ú');
+
+                    mensajeUsuario = mensajeUsuario.replace('&#209;', 'Ñ');
+                    mensajeUsuario = mensajeUsuario.replace('&#241;', 'ñ');
+
+                    mensajeUsuario = mensajeUsuario.replace('&#39;', "'");
+
+                    $('#mensajeUsuario').text(mensajeUsuario);
+                }
+
+                if (!mensajeTecnico) {
+                    $('#mensajeTecnico').text('');
+                }
+                else {
+                    $('#mensajeTecnico').text(mensajeTecnico);
+                    $('#iconoMensaje').addClass('error');
+                }
+
+                $('#summary').show();
             }
+        }
 
-
-
-            function MostrarDatosDeAuditoria(usrIngreso, fecIngreso, usrModifico, fecModifico) {
-                $("#divMostrarDatosDeAuditoria").dialog('option', 'title', 'Auditoría');
-
-                $("#usrIngreso").text(usrIngreso);
-                $("#fecIngreso").text(fecIngreso);
-                $("#usrModifico").text(usrModifico);
-                $("#fecModifico").text(fecModifico);
-
-                $("#divMostrarDatosDeAuditoria").dialog("open");
-            }
-            </script>
+        </script>
     </header>
 
-    <div>
+    <div id="body">
         @RenderSection("featured", required: false)
+
+        @*<section>
+            <div id="pizarraMensaje">
+                <div id="iconoMensaje"></div>
+                <div id="mensajeUsuario">
+                    <label></label>
+                </div>
+                <div id="mensajeTecnico">
+                    <label></label>
+
+                </div>
+            </div>
+
+            <script>
+                $('#pizarraMensaje').hide();
+            </script>*@
+
+     @*       @RenderBody()
+        </section>*@
     </div>
+@*     <div>
+        @RenderSection("featured", required: false)
+    </div>*@
 
     <div>
         @RenderBody()
     </div>
-
+    @* <div id="divMostrarDatosDeAuditoria">
+        <table>
+        <tr>
+            <td>
+                <ol class="encabezadoInformacion">
+                    <li style="background-image: none;">
+                        <table>
+                            <tr>
+                                <td style="width: 160px;">
+                                    <label>Ingresado por</label>
+                                </td>
+                                <td>
+                                    <span id="usrIngreso"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li style="background-image: none;">
+                        <table>
+                            <tr>
+                                <td style="width: 160px;">
+                                    <label>Fecha de ingreso</label>
+                                </td>
+                                <td>
+                                    <span id="fecIngreso"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li style="background-image: none;">
+                        <table>
+                            <tr>
+                                <td style="width: 160px;">
+                                    <label>Modificado por</label>
+                                </td>
+                                <td>
+                                    <span id="usrModifico"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li style="background-image: none;">
+                        <table>
+                            <tr>
+                                <td style="width: 160px;">
+                                    <label>Última modificación</label>
+                                </td>
+                                <td>
+                                    <span id="fecModifico"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </li>
+                </ol>
+            </td>
+        </tr>
+    </table>
+    </div>*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

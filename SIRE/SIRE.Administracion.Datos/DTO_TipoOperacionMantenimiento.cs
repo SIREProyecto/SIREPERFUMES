@@ -15,7 +15,8 @@ namespace SIRE.Administracion.Datos
         Insertar = 2,
         Modificar = 3,
          Obtener = 4,
-        Eliminar = 5
+        Eliminar = 5, 
+        Combos = 55
       
         #endregion
     }

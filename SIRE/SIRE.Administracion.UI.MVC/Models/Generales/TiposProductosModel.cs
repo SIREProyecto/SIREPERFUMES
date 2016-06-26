@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.WebPages.Html;
 
 namespace SIRE.Administracion.UI.MVC.Models.Generales
 {
@@ -23,15 +24,11 @@ namespace SIRE.Administracion.UI.MVC.Models.Generales
         //Join
         public string DesCategoriaProducto { get; set; }
 
-
-
         #endregion
-
-        #region Acciones
 
         #region Consultar
 
-        public List<TiposProductosModel> Consultar(TiposProductosModelConsulta criterios, ref int tnumTotalRegistros)
+        public List<TiposProductosModel> ConsultarTiposProductos(TiposProductosModelConsulta criterios, ref int tnumTotalRegistros)
         {
             var modelos = new List<TiposProductosModel>();
 
@@ -41,7 +38,7 @@ namespace SIRE.Administracion.UI.MVC.Models.Generales
 
             try
             {
-                var result = SIRE.Administracion.Bs.LogicaNegocio.Instancia.Consultar(dtos, ref tnumTotalRegistros);
+                var result = SIRE.Administracion.Bs.LogicaNegocio.Instancia.ConsultarTiposProductos(dtos, ref tnumTotalRegistros);
 
                 foreach (var item in result)
                 {
@@ -60,6 +57,92 @@ namespace SIRE.Administracion.UI.MVC.Models.Generales
         }
 
         #endregion
+
+        #region Obtener
+
+        public TiposProductosModel ObtenerTiposProductos(Int16 ConTipoProducto)
+        {
+            TiposProductosModel modelo = new TiposProductosModel();
+
+
+            try
+            {
+                DTO_TiposProductos result = SIRE.Administracion.Bs.LogicaNegocio.Instancia.ObtenerTiposProductos(ConTipoProducto);
+                modelo = ConvertirAModelo(result);
+
+            }
+            catch (Exception ex)
+            {
+                modelo = new TiposProductosModel();
+
+                modelo.CodigoError = 4;
+                modelo.DescripcionError = ex.Message;
+
+            }
+
+            return modelo;
+        }
+
+        #endregion
+
+        #region Ingresar
+
+        public TiposProductosModel IngresarTiposProductos()
+        {
+            TiposProductosModel modelo = new TiposProductosModel();
+            DTO_TiposProductos dto;
+
+
+            dto = ConvertirADTO();
+
+            try
+            {
+                DTO_TiposProductos result = SIRE.Administracion.Bs.LogicaNegocio.Instancia.IngresarTiposProductos(dto);
+
+                modelo = ConvertirAModelo(result);
+            }
+            catch (Exception ex)
+            {
+
+                modelo = new TiposProductosModel();
+                modelo.CodigoError = 4;
+                modelo.DescripcionError = ex.Message + ex.StackTrace;
+
+            }
+
+
+            return modelo;
+        }
+
+        #endregion
+
+        #region Editar
+
+        public TiposProductosModel EditarTiposProductos()
+        {
+            TiposProductosModel modelo = new TiposProductosModel();
+            DTO_TiposProductos dto;
+
+            dto = ConvertirADTO();
+
+            try
+            {
+                DTO_TiposProductos result = SIRE.Administracion.Bs.LogicaNegocio.Instancia.EditarTiposProductos(dto);
+
+                modelo = ConvertirAModelo(result);
+            }
+            catch (Exception ex)
+            {
+
+                modelo = new TiposProductosModel();
+                modelo.CodigoError = 4;
+                modelo.DescripcionError = ex.Message;
+
+            }
+
+            return modelo;
+
+        }
 
         #endregion
 

@@ -85,6 +85,25 @@ namespace SIRE.Administracion.Ds
                 if (criterios.OrderField != null)
                 {
 
+                    if (criterios.OrderField == "CodParametroGeneral ASC")
+                    {
+                        orderField = "CodParametroGeneral ASC";
+                    }
+
+                    if (criterios.OrderField == "CodParametroGeneral DESC")
+                    {
+                        orderField = "CodParametroGeneral DESC";
+                    }
+
+                    if (criterios.OrderField == "DesParametroGeneral ASC")
+                    {
+                        orderField = "DesParametroGeneral ASC";
+                    }
+
+                    if (criterios.OrderField == "DesParametroGeneral DESC")
+                    {
+                        orderField = "DesParametroGeneral DESC";
+                    }
                 }
 
                 else
@@ -219,7 +238,7 @@ namespace SIRE.Administracion.Ds
                 cmd.Parameters.Add("@pUsuarioIngreso", SqlDbType.Text);
                 cmd.Parameters["@pUsuarioIngreso"].Value = dto.UsrIngreso;
                 cmd.Parameters.Add("@pCompania", SqlDbType.TinyInt);
-                cmd.Parameters["@pCompania"].Value = dto.Compania;
+                //cmd.Parameters["@pCompania"].Value = dto.Compania;
 
                 cnn.Open();
 
@@ -261,7 +280,7 @@ namespace SIRE.Administracion.Ds
                 cmd.Parameters.Add("@pUsuarioModifico", SqlDbType.Text);
                 cmd.Parameters["@pUsuarioModifico"].Value = dto.UsrModifico;
                 cmd.Parameters.Add("@pCompania", SqlDbType.TinyInt);
-                cmd.Parameters["@pCompania"].Value = dto.Compania;
+                //cmd.Parameters["@pCompania"].Value = dto.Compania;
 
                 cnn.Open();
 
@@ -285,7 +304,7 @@ namespace SIRE.Administracion.Ds
 
         #region Tipos de Productos
 
-        public List<DTO_TiposProductos> Consultar(DTO_TiposProductosConsulta criterios, ref int tnumTotalRegistros)
+        public List<DTO_TiposProductos> ConsultarTiposProductos(DTO_TiposProductosConsulta criterios, ref int tnumTotalRegistros)
         {
 
             List<DTO_TiposProductos> resultado = new List<DTO_TiposProductos>();
@@ -300,7 +319,25 @@ namespace SIRE.Administracion.Ds
 
                 if (criterios.OrderField != null)
                 {
+                    if (criterios.OrderField == "DesTipoProducto ASC")
+                    {
+                        orderField = "DesTipoProducto ASC";
+                    }
 
+                    if (criterios.OrderField == "DesTipoProducto DESC")
+                    {
+                        orderField = "DesTipoProducto DESC";
+                    }
+
+                    if (criterios.OrderField == "CategoriaProducto ASC")
+                    {
+                        orderField = "CategoriaProducto ASC";
+                    }
+
+                    if (criterios.OrderField == "CategoriaProducto DESC")
+                    {
+                        orderField = "CategoriaProducto DESC";
+                    }
                 }
 
                 else
@@ -364,7 +401,198 @@ namespace SIRE.Administracion.Ds
             return resultado;
         }
 
+        public DTO_TiposProductos ObtenerTiposProductos(Int16 ConTipoProducto)
+        {
+
+            DTO_TiposProductos resultado = new DTO_TiposProductos();
+            SqlConnection cnn = null;
+            SqlCommand cmd = null;
+            DataSet dad;
+            SqlDataReader dr;
+            int ultimoParametro = 0;
+            string orderField = "";
+
+            try
+            {
+
+                cnn = new SqlConnection(@"Data Source=MIRIAM;Initial Catalog=BDSIRE;Integrated Security=True;User ID=sa;Password=sql2014");
+
+                cmd = new SqlCommand("pa_MantenimientoTipoProducto", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@pTipoOperacion", SqlDbType.TinyInt);
+                cmd.Parameters["@pTipoOperacion"].Value = DTO_TipoOperacionMantenimiento.Obtener;
+                cmd.Parameters.Add("@pConTipoProducto", SqlDbType.Text);
+                cmd.Parameters["@pConTipoProducto"].Value = ConTipoProducto;
+
+                cnn.Open();
+
+                //IDataReader dr = 
+                cmd.ExecuteNonQuery();
+
+                dr = cmd.ExecuteReader();
+                DTO_TiposProductos fila = new DTO_TiposProductos();
+
+                //foreach (DataRow item in dt.Rows)
+                //{
+
+                //    modelo = getFromDataRow(item);
+
+                //}
+                while (dr.Read())
+                {
+                    resultado.ConTipoProducto = dr.GetInt16(dr.GetOrdinal("ConTipoProducto"));
+                    resultado.DesTipoProducto = dr.GetString(dr.GetOrdinal("DesTipoProducto"));
+                    resultado.CategoriaProducto = dr.GetInt16(dr.GetOrdinal("CategoriaProducto"));
+                    resultado.DesCategoriaProducto = dr.GetString(dr.GetOrdinal("DesCategoriaProducto"));
+
+                    //resultado;
+                }//Fin del While
+
+
+                dr.Close();
+                dr.Dispose();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                throw;
+            }
+
+            return resultado;
+        }
+
+        public DTO_TiposProductos IngresarTiposProductos(DTO_TiposProductos dto)
+        {
+
+            SqlConnection cnn = null;
+            SqlCommand cmd = null;
+            cnn = new SqlConnection(@"Data Source=MIRIAM;Initial Catalog=BDSIRE;Integrated Security=True;User ID=sa;Password=sql2014");
+
+
+            try
+            {
+                cmd = new SqlCommand("pa_MantenimientoTipoProducto", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@pTipoOperacion", SqlDbType.TinyInt);
+                cmd.Parameters["@pTipoOperacion"].Value = DTO_TipoOperacionMantenimiento.Insertar;
+                cmd.Parameters.Add("@pDesTipoProducto", SqlDbType.Text);
+                cmd.Parameters["@pDesTipoProducto"].Value = dto.DesTipoProducto;
+                cmd.Parameters.Add("@pCategoriaProducto", SqlDbType.SmallInt);
+                cmd.Parameters["@pCategoriaProducto"].Value = dto.CategoriaProducto;
+                cmd.Parameters.Add("@pUsuarioIngreso", SqlDbType.Text);
+                cmd.Parameters["@pUsuarioIngreso"].Value = dto.UsrIngreso;
+
+                cnn.Open();
+
+                //IDataReader dr = 
+                cmd.ExecuteNonQuery();
+
+                dto = ObtenerTiposProductos(dto.ConTipoProducto);
+
+            }
+            catch (Exception ex)
+            {
+                dto = new DTO_TiposProductos();
+                dto.ResultadoMantenimiento.CodigoError = 1;
+                dto.ResultadoMantenimiento.DescripcionError = ex.Message;
+            }
+
+
+            return dto;
+        }
+
+        public DTO_TiposProductos EditarTiposProductos(DTO_TiposProductos dto)
+        {
+
+            SqlConnection cnn = null;
+            SqlCommand cmd = null;
+            cnn = new SqlConnection(@"Data Source=MIRIAM;Initial Catalog=BDSIRE;Integrated Security=True;User ID=sa;Password=sql2014");
+
+
+            try
+            {
+                cmd = new SqlCommand("pa_MantenimientoTipoProducto", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@pTipoOperacion", SqlDbType.TinyInt);
+                cmd.Parameters["@pTipoOperacion"].Value = DTO_TipoOperacionMantenimiento.Modificar;
+                cmd.Parameters.Add("@pDesTipoProducto", SqlDbType.Text);
+                cmd.Parameters["@pDesTipoProducto"].Value = dto.DesTipoProducto;
+                cmd.Parameters.Add("@pCategoriaProducto", SqlDbType.SmallInt);
+                cmd.Parameters["@pCategoriaProducto"].Value = dto.CategoriaProducto;
+                cmd.Parameters.Add("@pUsuarioModifico", SqlDbType.Text);
+                cmd.Parameters["@pUsuarioModifico"].Value = dto.UsrModifico;
+
+                cnn.Open();
+
+                //IDataReader dr = 
+                cmd.ExecuteNonQuery();
+
+                dto = ObtenerTiposProductos(dto.ConTipoProducto);
+
+            }
+            catch (Exception ex)
+            {
+                dto = new DTO_TiposProductos();
+                dto.ResultadoMantenimiento.CodigoError = 1;
+                dto.ResultadoMantenimiento.DescripcionError = ex.Message;
+            }
+
+
+            return dto;
+        }
+        
         #endregion
+
+        #region Categoria Productos
+
+        public List<DTO_CategoriaProducto> ObtenerCategoriasProductos()
+        {
+
+            List<DTO_CategoriaProducto> resultado = new List<DTO_CategoriaProducto>();
+            SqlConnection cnn = null;
+            SqlCommand cmd = null;
+            SqlDataReader dr;
+
+          
+            try
+            {
+
+                cnn = new SqlConnection(@"Data Source=MIRIAM;Initial Catalog=BDSIRE;Integrated Security=True;User ID=sa;Password=sql2014");
+
+                cmd = new SqlCommand("pa_MantenimientoCategoriaProducto", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@pTipoOperacion", SqlDbType.TinyInt);
+                cmd.Parameters["@pTipoOperacion"].Value = DTO_TipoOperacionMantenimiento.Combos;
+
+                cnn.Open();
+                cmd.ExecuteNonQuery();
+
+                dr = cmd.ExecuteReader();
+                DTO_CategoriaProducto fila = new DTO_CategoriaProducto();
+                while (dr.Read())
+                {
+                    fila.ConCategoriaProducto = dr.GetInt16(dr.GetOrdinal("ConCategoriaProducto"));
+                    fila.DesCategoriaProducto = dr.GetString(dr.GetOrdinal("DesCategoriaProducto"));
+
+                    resultado.Add(fila);
+                }//Fin del While
+
+
+                dr.Close();
+                dr.Dispose();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                throw;
+            }
+
+            return resultado;
+        }
+
+
+        #endregion
+
 
     }
 }

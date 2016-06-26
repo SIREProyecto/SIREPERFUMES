@@ -28,7 +28,16 @@ namespace SIRE.Administracion.Bs
 
         #region Tipos de Productos
 
-        List<DTO_TiposProductos> Consultar(DTO_TiposProductosConsulta criterios, ref int tnumTotalRegistros);
+        List<DTO_TiposProductos> ConsultarTiposProductos(DTO_TiposProductosConsulta criterios, ref int tnumTotalRegistros);
+        DTO_TiposProductos IngresarTiposProductos(DTO_TiposProductos dto);
+        DTO_TiposProductos EditarTiposProductos(DTO_TiposProductos dto);
+        DTO_TiposProductos ObtenerTiposProductos(Int16 ConTipoProducto);
+
+        #endregion
+
+        #region
+
+        List<DTO_CategoriaProducto> ObtenerCategoriasProductos();
 
         #endregion
 

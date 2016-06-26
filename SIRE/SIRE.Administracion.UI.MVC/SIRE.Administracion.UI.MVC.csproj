@@ -191,6 +191,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Generales\ParametrosGeneralesController.cs" />
+    <Compile Include="Controllers\Generales\TiposProductosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TipoProductoController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -204,6 +205,7 @@
     <Compile Include="Models\MantenimientoGeneralModel.cs" />
     <Compile Include="Models\TipoProductoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilitarios\Comun.cs" />
     <Compile Include="Utilitarios\Etiquetas.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -472,6 +474,8 @@
     <Content Include="Views\ParametrosGenerales\Index.cshtml" />
     <Content Include="Views\ParametrosGenerales\Busqueda.cshtml" />
     <Content Include="Views\ParametrosGenerales\Editar.cshtml" />
+    <Content Include="Views\TiposProductos\Busqueda.cshtml" />
+    <Content Include="Views\TiposProductos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

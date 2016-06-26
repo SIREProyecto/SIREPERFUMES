@@ -18,7 +18,7 @@ namespace SIRE.Administracion.UI.MVC.Models.Generales
         [Display(Name = Etiquetas.DescripcionParametro)]
         [Required(AllowEmptyStrings = false, ErrorMessage = Etiquetas.GenMes_Requerido)]
         public string DesParametroGeneral { get; set; }
-        public byte Compania { get; set; }
+        //public byte Compania { get; set; }
 
 
         #endregion
@@ -141,6 +141,7 @@ namespace SIRE.Administracion.UI.MVC.Models.Generales
 
             modelo.CodParametroGeneral = dto.CodParametroGeneral;
             modelo.DesParametroGeneral = dto.DesParametroGeneral;
+            //modelo.Compania = dto.Compania;
             modelo.CodigoError = dto.ResultadoMantenimiento.CodigoError;
             modelo.DescripcionError = dto.ResultadoMantenimiento.DescripcionError;
             modelo.OtrasDescripciones = dto.ResultadoMantenimiento.OtrasDescripciones;
@@ -154,6 +155,7 @@ namespace SIRE.Administracion.UI.MVC.Models.Generales
 
             dto.CodParametroGeneral = this.CodParametroGeneral;
             dto.DesParametroGeneral = this.DesParametroGeneral;
+            //dto.Compania = this.Compania;
 
             return dto;
         }

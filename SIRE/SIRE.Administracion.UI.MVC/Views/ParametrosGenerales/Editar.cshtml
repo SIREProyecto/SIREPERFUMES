@@ -6,6 +6,24 @@
     Layout = "~/Views/Shared/_LayoutMantenimiento.cshtml";
 }
 
+@{if (Model.CodParametroGeneral != "" || Model.CodParametroGeneral != null)
+  {
+    <script>
+        $(document).ready(function () {
+            $('#CodParametroGeneral').attr('readonly', true);
+        });
+
+        /****Mensajes de error o exito****/
+        var tmensaje = '@ViewBag.MesajeExito';
+        var tmensajeTecnico = '@ViewBag.MesajeTenico';
+        var tTipoMensaje = '@ViewBag.TipoMensaje';
+
+        MostrarMensaje(tmensaje, tmensajeTecnico, tTipoMensaje)
+
+    </script>
+  }
+}
+
 @using (Html.BeginForm())
 {  
     <div hidden="hidden" class="ErrorDB" id="Mensaje1">
@@ -25,9 +43,7 @@
                     @Html.LabelFor(model => model.CodParametroGeneral)
                 </div>
             </td>
-            <td>
-                @Html.Label(Etiquetas.CAMPO_REQUERIDO, new { @class = "mensajeRequerido" })
-            </td>
+            <td></td>
             <td>
                 <div>
                     @Html.TextBoxFor(model => model.CodParametroGeneral, new { @clean = "true", maxlength = "6" })
@@ -63,12 +79,12 @@
                     <button type="button" id="catalogo">Catálogo</button>
                     <button type="button" id="Limpiar" onclick="LimpiarCampos()">Limpiar</button>
 
-                    @{
+@*                    @{
     if (Model.CodParametroGeneral != null && Model.CodParametroGeneral != "")
     {
                         <button type="button" id="btnAuditoria" onclick="MostrarDatosDeAuditoria('@Model.UsrIngreso', '@Model.FecIngreso', '@Model.UsrModifico', '@Model.FecModifico')">Auditoría</button>
     }
-                    }
+                    }*@
                 </div>
 
             </td>
@@ -77,6 +93,6 @@
 }
 
 
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@

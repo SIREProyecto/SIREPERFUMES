@@ -1,7 +1,7 @@
-﻿@model SIRE.Administracion.UI.MVC.Models.Generales.ParametrosGeneralesModelConsulta
-
+﻿@model SIRE.Administracion.UI.MVC.Models.Generales.TiposProductosModelConsulta
+@using SIRE.Administracion.UI.MVC.Utilitarios;
 @{
-    ViewBag.Title = "Mantenimiento de Parámetros Generales: Búsqueda";
+    ViewBag.Title = "Mantenimiento de Tipos de Productos: Búsqueda";
     Layout = "~/Views/Shared/_LayoutMantenimiento.cshtml";
 }
 
@@ -12,7 +12,7 @@
     });
 
     var estadosDisponibles = 'EDITAR,ELIMINAR,ACTIVAR';
-    var mainTableContainer = "ParametrosTableContainer";
+    var mainTableContainer = "TiposProductosTableContainer";
 
     function IrEditar(llave, valor) {
         window.parent.parent.dispararEditar(llave, valor);
@@ -73,7 +73,7 @@
     }
 </script>
 
-@using (Ajax.BeginForm("Buscar", "ParametrosGenerales", new AjaxOptions
+@using (Ajax.BeginForm("Buscar", "TiposProductos", new AjaxOptions
 {
     HttpMethod = "GET",
     InsertionMode = InsertionMode.Replace,
@@ -83,11 +83,23 @@
     <table>
         <tr>
             <td>
-                <div>@Html.LabelFor(model => model.desParametrosGeneralesBus)</div>
+                <div>@Html.LabelFor(model => model.DesTipoProductoBus)</div>
             </td>
 
             <td>
-                <div>@Html.TextBoxFor(model => model.desParametrosGeneralesBus)</div>
+                <div>@Html.TextBoxFor(model => model.DesTipoProductoBus)</div>
+            </td>
+        </tr>
+
+                
+        <tr>
+            <td>
+                <div>@Html.LabelFor(model => model.CategoriaProductoBus)</div>
+            </td>
+
+            <td>
+               <div>@Html.DropDownListFor(model => model.CategoriaProductoBus, new SelectList(ViewBag.ComboCategoriaProducto, "VALUE", "TEXT"), Etiquetas.GenSeleccionar, new { @class = "CampoDropdownlist" })</div>
+           
             </td>
         </tr>
     </table>
@@ -97,7 +109,7 @@
             <td>
                 <div>
                     <button id="btnBuscar" type="submit">Buscar</button>
-                    <button id="btnNuevo" onclick="IrEditar('Editar', '')">Nuevo</button>
+                    <button id="btnNuevo" onclick="IrEditar('Editar', 0)">Nuevo</button>
                     <button id="btnSalir">Salir</button>
                 </div>
             </td>
@@ -105,7 +117,7 @@
     </table>
 }
 
-<div id="ParametrosTableContainer" class="contenedorGrid"></div>
+<div id="TiposProductosTableContainer" class="contenedorGrid"></div>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -117,21 +129,8 @@
             defaultDateFormat: 'dd/mm/yy',
             actions: {
                 listAction: '@Url.Action("Buscar")'
-                //updateAction: '/ParametrosGenerales/Editar',
-                //deleteAction: '/ParametrosGenerales/Eliminar'
             },
             fields: {
-                //Acciones: {
-                //    title: "Acciones",
-                //    width: '10%',
-                //    create: false,
-                //    edit: false,
-                //    visibility: "fixed",
-                //    sorting: false,
-                //    display: function (data) {
-                //        return '<br />';
-                //    }
-                //},
                 Acciones: {
                     title: "Acciones",
                     width: '1%',
@@ -148,18 +147,21 @@
                         return controles;
 
                     }
-
-
                 },
-                CodParametroGeneral: {
+                ConTipoProducto: {
                     key: true,
                     width: '10%',
                     title: "Código"
                 },
-                DesParametroGeneral: {
+                DesTipoProducto: {
                     key: false,
                     width: '80%',
                     title: "Descripción"
+                },
+                DesCategoriaProducto: {
+                    key: false,
+                    width: '80%',
+                    title: "Categoría Producto"
                 }
             }
         });
@@ -168,7 +170,8 @@
             e.preventDefault();
 
             $('#' + mainTableContainer).jtable('load', {
-                tdesParametrosGeneralesBus: $('#desParametrosGeneralesBus').val(),
+                tDesTipoProductoBus: $('#DesTipoProductoBus').val(),
+                tCategoriaProductoBus: $('#CategoriaProductoBus').val(),
             });
         });
     });

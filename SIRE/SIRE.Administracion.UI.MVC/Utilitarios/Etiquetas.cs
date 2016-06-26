@@ -32,8 +32,8 @@ namespace SIRE.Administracion.UI.MVC.Utilitarios
         public const string GenSeleccionar = "Seleccionar";
         public const string GenMes_IngresoExito = "El registro fue ingresado satisfactoriamente";
         public const string GenMes_EdicionExito = "El registro fue modificado satisfactoriamente";
-        public const string GenMes_IngresoError = "Se ha producido un error al ingresar el registro: @1";
-        public const string GenMes_EdicionError = "Se ha producido un error al modificar el registro: @1";
+        public const string GenMes_IngresoError = "Se ha producido un error al ingresar el registro";
+        public const string GenMes_EdicionError = "Se ha producido un error al modificar el registro";
 
         public const string msgIconoConfirmar = "C";
         public const string msgIconoPrecaucion = "A";

@@ -31,6 +31,7 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
 
         public ActionResult Editar(string codigo, string tInfo_Mensaje = null, string tInfo_Tecnica = null, string ttipo_Mensaje = null)
         {
+            
             ParametrosGeneralesModel modelo = new ParametrosGeneralesModel();
             if (tInfo_Mensaje != null)
             {
@@ -44,6 +45,11 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
             if (ttipo_Mensaje != null)
             {
                 ViewBag.TipoMensaje = ttipo_Mensaje;
+            }
+
+            if (codigo != "" || codigo != null)
+            {
+                modelo = modelo.ObtenerParametrosGenerales(codigo);
             }
             return View(modelo);
         }
@@ -114,31 +120,13 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
 
                 else
                 {
-                string mensajeAccion = string.Empty; ;
-                string mensajetecnico = string.Empty;
-                string tipomensaje = string.Empty;
-
-                if (modelo.CodParametroGeneral == null)
-                {
-                   
-                    modelo = modelo.IngresarParametrosGenerales();
-                    
-                    mensajeAccion = Etiquetas.GenMes_IngresoExito;
-                    tipomensaje = Etiquetas.msgIconoConfirmar;
-                    if (modelo.CodigoError != 0)
-                    {
-
-                        mensajeAccion = Etiquetas.GenMes_IngresoError;
-                        mensajetecnico = modelo.DescripcionError;
-                        tipomensaje = Etiquetas.msgIconoError;
-                    }
-                }
-                else
-                {
-                    
+                
+                    string mensajeAccion = string.Empty; 
+                    string mensajetecnico = string.Empty;
+                    string tipomensaje = string.Empty;
                     modelo = modelo.EditarParametrosGenerales();
                     mensajeAccion = Etiquetas.GenMes_EdicionExito;
-                    tipomensaje = Etiquetas.msgIconoConfirmar;
+                    tipomensaje = Etiquetas.msgIconoInformacion;
                     if (modelo.CodigoError != 0)
                     {
 
@@ -146,7 +134,36 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
                         mensajetecnico = modelo.DescripcionError;
                         tipomensaje = Etiquetas.msgIconoError;
                     }
-                }
+
+                //if (modelo.CodParametroGeneral == null || modelo.CodParametroGeneral == "")
+                //{
+                   
+                //    modelo = modelo.IngresarParametrosGenerales();
+                    
+                //    mensajeAccion = Etiquetas.GenMes_IngresoExito;
+                //    tipomensaje = Etiquetas.msgIconoConfirmar;
+                //    if (modelo.CodigoError != 0)
+                //    {
+
+                //        mensajeAccion = Etiquetas.GenMes_IngresoError;
+                //        mensajetecnico = modelo.DescripcionError;
+                //        tipomensaje = Etiquetas.msgIconoError;
+                //    }
+                //}
+                //else
+                //{
+                    
+                //    modelo = modelo.EditarParametrosGenerales();
+                //    mensajeAccion = Etiquetas.GenMes_EdicionExito;
+                //    tipomensaje = Etiquetas.msgIconoConfirmar;
+                //    if (modelo.CodigoError != 0)
+                //    {
+
+                //        mensajeAccion = Etiquetas.GenMes_EdicionError;
+                //        mensajetecnico = modelo.DescripcionError;
+                //        tipomensaje = Etiquetas.msgIconoError;
+                //    }
+                //}
 
                 return RedirectToAction("Editar", new RouteValueDictionary{
                 {"controller", "ParametrosGenerales"},

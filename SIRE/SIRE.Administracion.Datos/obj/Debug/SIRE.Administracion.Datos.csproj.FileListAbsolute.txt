@@ -10,3 +10,8 @@ C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Ad
 C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Administracion.Datos\bin\Debug\SIRE.Administracion.Datos.pdb
 C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Administracion.Datos\obj\Debug\SIRE.Administracion.Datos.dll
 C:\Users\Miriam\Dropbox\Diagrama de Base de Datos\Proyecto\Proyecto\SIRE\SIRE.Administracion.Datos\obj\Debug\SIRE.Administracion.Datos.pdb
+C:\Users\Miriam\Documents\GitHub\SIREPERFUMES\SIRE\SIRE.Administracion.Datos\bin\Debug\SIRE.Administracion.Datos.dll
+C:\Users\Miriam\Documents\GitHub\SIREPERFUMES\SIRE\SIRE.Administracion.Datos\bin\Debug\SIRE.Administracion.Datos.pdb
+C:\Users\Miriam\Documents\GitHub\SIREPERFUMES\SIRE\SIRE.Administracion.Datos\obj\Debug\SIRE.Administracion.Datos.csprojResolveAssemblyReference.cache
+C:\Users\Miriam\Documents\GitHub\SIREPERFUMES\SIRE\SIRE.Administracion.Datos\obj\Debug\SIRE.Administracion.Datos.dll
+C:\Users\Miriam\Documents\GitHub\SIREPERFUMES\SIRE\SIRE.Administracion.Datos\obj\Debug\SIRE.Administracion.Datos.pdb

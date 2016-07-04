@@ -7,14 +7,21 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using System.Data.Common;
+using Microsoft.Practices.EnterpriseLibrary.Common;
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using ProjectBase.Validation;
 
 namespace SIRE.Administracion.Ds
 {
     public class AccesoDatos : IAccesoDatos
     {
-
+        private static Database sqlDataBase;
         public static String SQLCnnString;
         private static IAccesoDatos mInstancia;
+
+     
         public static IAccesoDatos Instancia
         {
             get
@@ -30,10 +37,17 @@ namespace SIRE.Administracion.Ds
             {
                 mInstancia = value;
             }
+
+
         }
 
+        public AccesoDatos()
+        {
+            sqlDataBase = DatabaseFactory.CreateDatabase(ConfigurationManager.AppSettings["DBSACP"]);
+        }
 
         #region Conexion
+         
 
         Boolean IAccesoDatos.ComprobarStringConexion(_ConexionBD ConexBD)
         {
@@ -407,11 +421,8 @@ namespace SIRE.Administracion.Ds
             DTO_TiposProductos resultado = new DTO_TiposProductos();
             SqlConnection cnn = null;
             SqlCommand cmd = null;
-            DataSet dad;
             SqlDataReader dr;
-            int ultimoParametro = 0;
-            string orderField = "";
-
+           
             try
             {
 
@@ -421,7 +432,7 @@ namespace SIRE.Administracion.Ds
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@pTipoOperacion", SqlDbType.TinyInt);
                 cmd.Parameters["@pTipoOperacion"].Value = DTO_TipoOperacionMantenimiento.Obtener;
-                cmd.Parameters.Add("@pConTipoProducto", SqlDbType.Text);
+                cmd.Parameters.Add("@pConTipoProducto", SqlDbType.SmallInt);
                 cmd.Parameters["@pConTipoProducto"].Value = ConTipoProducto;
 
                 cnn.Open();
@@ -549,28 +560,17 @@ namespace SIRE.Administracion.Ds
         {
 
             List<DTO_CategoriaProducto> resultado = new List<DTO_CategoriaProducto>();
-            SqlConnection cnn = null;
-            SqlCommand cmd = null;
-            SqlDataReader dr;
-
-          
+                  
             try
             {
 
-                cnn = new SqlConnection(@"Data Source=MIRIAM;Initial Catalog=BDSIRE;Integrated Security=True;User ID=sa;Password=sql2014");
-
-                cmd = new SqlCommand("pa_MantenimientoCategoriaProducto", cnn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@pTipoOperacion", SqlDbType.TinyInt);
-                cmd.Parameters["@pTipoOperacion"].Value = DTO_TipoOperacionMantenimiento.Combos;
-
-                cnn.Open();
-                cmd.ExecuteNonQuery();
-
-                dr = cmd.ExecuteReader();
-                DTO_CategoriaProducto fila = new DTO_CategoriaProducto();
+                String StrSQL = String.Format("SELECT ConCategoriaProducto,DesCategoriaProducto FROM CategoriaProducto");
+                DbCommand varCmd = sqlDataBase.GetSqlStringCommand(StrSQL);
+                IDataReader dr = sqlDataBase.ExecuteReader(varCmd);
+                
                 while (dr.Read())
                 {
+                    DTO_CategoriaProducto fila = new DTO_CategoriaProducto();
                     fila.ConCategoriaProducto = dr.GetInt16(dr.GetOrdinal("ConCategoriaProducto"));
                     fila.DesCategoriaProducto = dr.GetString(dr.GetOrdinal("DesCategoriaProducto"));
 

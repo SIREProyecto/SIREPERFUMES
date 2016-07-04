@@ -26,3 +26,7 @@ C:\Users\Miriam\Documents\GitHub\SIREPERFUMES\SIRE\SIRE.Administracion.Ds\bin\De
 C:\Users\Miriam\Documents\GitHub\SIREPERFUMES\SIRE\SIRE.Administracion.Ds\obj\Debug\SIRE.Administracion.Ds.csprojResolveAssemblyReference.cache
 C:\Users\Miriam\Documents\GitHub\SIREPERFUMES\SIRE\SIRE.Administracion.Ds\obj\Debug\SIRE.Administracion.Ds.dll
 C:\Users\Miriam\Documents\GitHub\SIREPERFUMES\SIRE\SIRE.Administracion.Ds\obj\Debug\SIRE.Administracion.Ds.pdb
+C:\Users\Miriam\Documents\GitHub\SIREPERFUMES\SIRE\SIRE.Administracion.Ds\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\Users\Miriam\Documents\GitHub\SIREPERFUMES\SIRE\SIRE.Administracion.Ds\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\Users\Miriam\Documents\GitHub\SIREPERFUMES\SIRE\SIRE.Administracion.Ds\bin\Debug\ProjectBase.Validation.dll
+C:\Users\Miriam\Documents\GitHub\SIREPERFUMES\SIRE\SIRE.Administracion.Ds\bin\Debug\Microsoft.Practices.ObjectBuilder2.dll

@@ -386,6 +386,25 @@ form {
     form select {
         background: url('../Images/iconoDropDownlist.png') no-repeat;
         background-position: right center;
+        /*-webkit-appearance: none;
+        line-height: 1.2em;
+        background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc));
+        -webkit-appearance: none;
+        -webkit-box-shadow: 1px 1px 1px #fff;
+        -webkit-border-radius: 0.5em;
+        border: 1px solid #757B7F;
+        background: #FBFBFB;
+        -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.05);
+        -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,.05);
+        -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.05);
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #757B7F;
+        text-align: left;
+        height: 26px;
+        width: 150px;*/
     }
 
     form input, form textarea {

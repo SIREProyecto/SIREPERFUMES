@@ -1,0 +1,90 @@
+﻿@model SIRE.Administracion.UI.MVC.Models.Generales.TiposProductosModel
+@using SIRE.Administracion.UI.MVC.Utilitarios;
+
+@{
+    ViewBag.Title = "Mantenimiento de Tipos de Productos: Edición";
+    Layout = "~/Views/Shared/_LayoutMantenimiento.cshtml";
+}
+
+@{if (Model.ConTipoProducto != 0)
+  {
+    <script>
+
+        /****Mensajes de error o exito****/
+        var tmensaje = '@ViewBag.MesajeExito';
+        var tmensajeTecnico = '@ViewBag.MesajeTenico';
+        var tTipoMensaje = '@ViewBag.TipoMensaje';
+
+        MostrarMensaje(tmensaje, tmensajeTecnico, tTipoMensaje)
+
+    </script>
+  }
+}
+
+@using (Html.BeginForm())
+{  
+    <div hidden="hidden" class="ErrorDB" id="Mensaje1">
+        <img id="Imagen" src="~/Images/Valid.png">
+        @ViewBag.MesajeExito
+    </div>
+    <div id="Mensaje3" class="DetalleDB" hidden="hidden">Detalles</div>
+    <div class="ErrorDB" id="Men3" hidden="hidden">@ViewBag.MesajeTenico</div>  
+    
+    @Html.ValidationSummary(true)
+
+ 
+    <table>
+        <tr>
+            <td>
+                <div>
+                    @Html.LabelFor(model => model.DesTipoProducto)
+                </div>
+            </td>
+              <td>
+                @Html.Label(Etiquetas.CAMPO_REQUERIDO, new { @class = "mensajeRequerido" })
+            </td>
+            <td>
+                <div>
+                    @Html.TextBoxFor(model => model.DesTipoProducto, new { @clean = "true", maxlength = "60" })
+                    @Html.ValidationMessageFor(modelo => modelo.DesTipoProducto)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.LabelFor(model => model.CategoriaProducto)
+                </div>
+            </td>
+            <td>
+                @Html.Label(Etiquetas.CAMPO_REQUERIDO, new { @class = "mensajeRequerido" })
+            </td>
+            <td>
+                <div>
+                    @Html.DropDownListFor(model => model.CategoriaProducto, new SelectList(ViewBag.ComboCategoriaProducto, "VALUE", "TEXT").OrderBy(m => m.Text), Etiquetas.GenSeleccionar, new { @class = "CampoDropdownlist", @clean = "true" })
+                    @Html.ValidationMessageFor(modelo => modelo.CategoriaProducto)
+                </div>
+            </td>
+        </tr>
+
+
+    </table>
+    <table>
+        <tr>
+            <td>
+                <br />
+                <div class="AlinIzq">
+                    <button type="submit" id="Salvar">Guardar</button>
+                    <button type="button" id="catalogo">Catálogo</button>
+                    <button type="button" id="Limpiar" onclick="LimpiarCampos()">Limpiar</button>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

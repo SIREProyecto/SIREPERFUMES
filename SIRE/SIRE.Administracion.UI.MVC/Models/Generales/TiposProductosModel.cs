@@ -17,8 +17,10 @@ namespace SIRE.Administracion.UI.MVC.Models.Generales
         [Display(Name = Etiquetas.ConTipoProducto)]
         public Int16 ConTipoProducto { get; set; }
         [Display(Name = Etiquetas.DesTipoProducto)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = Etiquetas.GenMes_Requerido)]
         public string DesTipoProducto { get; set; }
         [Display(Name = Etiquetas.CategoriaProducto)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = Etiquetas.GenMes_Requerido)]
         public Int16 CategoriaProducto { get; set; }
 
         //Join

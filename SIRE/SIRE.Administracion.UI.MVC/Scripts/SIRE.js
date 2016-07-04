@@ -1,0 +1,4 @@
+﻿function cerrarPagina() {
+    window.close();
+
+}

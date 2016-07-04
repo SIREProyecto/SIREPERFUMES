@@ -47,7 +47,7 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
                 ViewBag.TipoMensaje = ttipo_Mensaje;
             }
 
-            if (codigo != 0|| codigo != null)
+            if (codigo != 0)
             {
                 modelo = modelo.ObtenerTiposProductos(codigo);
             }
@@ -115,7 +115,7 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
 
                     if (modelo.ConTipoProducto == null || modelo.ConTipoProducto == 0)
                     {
-
+                        modelo.UsrIngreso = "SIRE";
                         modelo = modelo.IngresarTiposProductos();
 
                         mensajeAccion = Etiquetas.GenMes_IngresoExito;

@@ -386,6 +386,7 @@
     <Content Include="Scripts\Bootstrap\main.js" />
     <Content Include="Scripts\Bootstrap\respond.min.js" />
     <Content Include="Scripts\Bootstrap\wow.min.js" />
+    <Content Include="Scripts\SIRE.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -476,6 +477,7 @@
     <Content Include="Views\ParametrosGenerales\Editar.cshtml" />
     <Content Include="Views\TiposProductos\Busqueda.cshtml" />
     <Content Include="Views\TiposProductos\Index.cshtml" />
+    <Content Include="Views\TiposProductos\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -343,14 +343,24 @@ namespace SIRE.Administracion.Ds
                         orderField = "DesTipoProducto DESC";
                     }
 
-                    if (criterios.OrderField == "CategoriaProducto ASC")
+                    if (criterios.OrderField == "DesCategoriaProducto ASC")
                     {
-                        orderField = "CategoriaProducto ASC";
+                        orderField = "DesCategoriaProducto ASC";
                     }
 
-                    if (criterios.OrderField == "CategoriaProducto DESC")
+                    if (criterios.OrderField == "DesCategoriaProducto DESC")
                     {
-                        orderField = "CategoriaProducto DESC";
+                        orderField = "DesCategoriaProducto DESC";
+                    }
+
+                    if (criterios.OrderField == "ConTipoProducto ASC")
+                    {
+                        orderField = "ConTipoProducto ASC";
+                    }
+
+                    if (criterios.OrderField == "ConTipoProducto DESC")
+                    {
+                        orderField = "ConTipoProducto DESC";
                     }
                 }
 
@@ -387,17 +397,14 @@ namespace SIRE.Administracion.Ds
 
                 tnumTotalRegistros = (int)cmd.Parameters[6].Value;
                 dr = cmd.ExecuteReader();
-                DTO_TiposProductos fila = new DTO_TiposProductos();
+                
                 while (dr.Read())
                 {
+                    DTO_TiposProductos fila = new DTO_TiposProductos();
                     fila.ConTipoProducto = dr.GetInt16(dr.GetOrdinal("ConTipoProducto"));
                     fila.DesTipoProducto = dr.GetString(dr.GetOrdinal("DesTipoProducto"));
                     fila.CategoriaProducto = dr.GetInt16(dr.GetOrdinal("CategoriaProducto"));
                     fila.DesCategoriaProducto = dr.GetString(dr.GetOrdinal("DesCategoriaProducto"));
-                    fila.UsrIngreso = dr.GetString(dr.GetOrdinal("UsuarioIngreso"));
-                    fila.FecIngreso = dr.GetDateTime(dr.GetOrdinal("FechaIngreso"));
-                    fila.UsrModifico = dr.GetString(dr.GetOrdinal("UsuarioModifico"));
-                    fila.FecModifico = dr.GetDateTime(dr.GetOrdinal("FechaModifico"));
 
                     resultado.Add(fila);
                 }//Fin del While
@@ -479,7 +486,7 @@ namespace SIRE.Administracion.Ds
             SqlCommand cmd = null;
             cnn = new SqlConnection(@"Data Source=MIRIAM;Initial Catalog=BDSIRE;Integrated Security=True;User ID=sa;Password=sql2014");
 
-
+            Int16 ConTipoProducto = 0;
             try
             {
                 cmd = new SqlCommand("pa_MantenimientoTipoProducto", cnn);
@@ -492,13 +499,17 @@ namespace SIRE.Administracion.Ds
                 cmd.Parameters["@pCategoriaProducto"].Value = dto.CategoriaProducto;
                 cmd.Parameters.Add("@pUsuarioIngreso", SqlDbType.Text);
                 cmd.Parameters["@pUsuarioIngreso"].Value = dto.UsrIngreso;
+                SqlParameter outputParam = cmd.Parameters.Add("@pConTipoProductoOUT", SqlDbType.SmallInt);
+                outputParam.Direction = ParameterDirection.Output;
+                cmd.Parameters["@pConTipoProductoOUT"].Value = null;
+
 
                 cnn.Open();
 
                 //IDataReader dr = 
                 cmd.ExecuteNonQuery();
-
-                dto = ObtenerTiposProductos(dto.ConTipoProducto);
+                ConTipoProducto = (Int16)cmd.Parameters[4].Value;
+                dto = ObtenerTiposProductos(ConTipoProducto);
 
             }
             catch (Exception ex)
@@ -532,6 +543,8 @@ namespace SIRE.Administracion.Ds
                 cmd.Parameters["@pCategoriaProducto"].Value = dto.CategoriaProducto;
                 cmd.Parameters.Add("@pUsuarioModifico", SqlDbType.Text);
                 cmd.Parameters["@pUsuarioModifico"].Value = dto.UsrModifico;
+                cmd.Parameters.Add("@pConTipoProducto", SqlDbType.SmallInt);
+                cmd.Parameters["@pConTipoProducto"].Value = dto.ConTipoProducto;
 
                 cnn.Open();
 

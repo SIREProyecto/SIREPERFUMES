@@ -148,6 +148,36 @@ namespace SIRE.Administracion.UI.MVC.Models.Generales
 
         #endregion
 
+        #region Eliminar
+
+        public TiposProductosModel EliminarTiposProductos()
+        {
+            TiposProductosModel modelo = new TiposProductosModel();
+            DTO_TiposProductos dto;
+
+            dto = ConvertirADTO();
+
+            try
+            {
+                DTO_TiposProductos result = SIRE.Administracion.Bs.LogicaNegocio.Instancia.EliminarTiposProductos(dto);
+
+                modelo = ConvertirAModelo(result);
+            }
+            catch (Exception ex)
+            {
+
+                modelo = new TiposProductosModel();
+                modelo.CodigoError = 4;
+                modelo.DescripcionError = ex.Message;
+
+            }
+
+            return modelo;
+
+        }
+
+        #endregion
+
         public TiposProductosModel ConvertirAModelo(DTO_TiposProductos dto)
         {
             var modelo = new TiposProductosModel();

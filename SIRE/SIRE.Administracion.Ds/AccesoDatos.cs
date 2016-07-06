@@ -564,7 +564,43 @@ namespace SIRE.Administracion.Ds
 
             return dto;
         }
+
+        public DTO_TiposProductos EliminarTiposProductos(DTO_TiposProductos dto)
+        {
+
+            SqlConnection cnn = null;
+            SqlCommand cmd = null;
+            cnn = new SqlConnection(@"Data Source=MIRIAM;Initial Catalog=BDSIRE;Integrated Security=True;User ID=sa;Password=sql2014");
+
+
+            try
+            {
+                cmd = new SqlCommand("pa_MantenimientoTipoProducto", cnn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@pTipoOperacion", SqlDbType.TinyInt);
+                cmd.Parameters["@pTipoOperacion"].Value = DTO_TipoOperacionMantenimiento.Eliminar;
+                cmd.Parameters.Add("@pConTipoProducto", SqlDbType.Int);
+                cmd.Parameters["@pConTipoProducto"].Value = dto.ConTipoProducto;
+
+                cnn.Open();
+
+                //IDataReader dr = 
+                cmd.ExecuteNonQuery();
+
+    
+            }
+            catch (Exception ex)
+            {
+                dto = new DTO_TiposProductos();
+                dto.ResultadoMantenimiento.CodigoError = 1;
+                dto.ResultadoMantenimiento.DescripcionError = ex.Message;
+            }
+
+
+            return dto;
+        }
         
+
         #endregion
 
         #region Categoria Productos

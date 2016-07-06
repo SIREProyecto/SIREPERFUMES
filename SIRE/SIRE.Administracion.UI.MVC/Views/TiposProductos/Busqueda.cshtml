@@ -34,38 +34,38 @@
 
         if (key == "btnEliminar") {
 
-            if (confirm(remplazarCaracteresEspeciales('El registro será eliminado. ¿Desea continuar?'))) {
-                $('#' + mainTableContainer).jtable('deleteRecord', {
-                    key: value,
-                    url: '@Url.Action("Eliminar")',
-                    success: function (data) {
-                        if (data.Result == "OK") {
-                            MostrarMensaje('El registro ha sido eliminado satisfactoriamente.', '', 'C')
-                        }
-                        else {
-                            MostrarMensaje('Ha ocurrido un problema no controlado al intentar eliminar el registro.', data.Message, 'E')
-                        }
-                    }
-                });
+            if (!confirm('El registro será eliminado. ¿Desea continuar?'))
+            {
+                return;
             }
-        }
+    
+            $.post(
 
-        if (key == "btnActivar") {
-            if (confirm(remplazarCaracteresEspeciales('El registro será activado. ¿Desea continuar?'))) {
-                $('#' + mainTableContainer).jtable('deleteRecord', {
-                    key: value,
-                    url: '@Url.Action("Activar")',
-                    success: function (data) {
-                        if (data.Result == "OK") {
-                            MostrarMensaje('El registro ha sido activado satisfactoriamente.', '', 'C')
-                        }
-                        else {
-                            MostrarMensaje('Ha ocurrido un problema no controlado al intentar activar el registro.', data.Message, 'E')
-                        }
-                    }
-                });
+                '@Url.Action("Eliminar", "TiposProductos")',        // URL a la acción
+			    { codigo: value },
+			    function (data) {                    // Función de retorno exitoso
+			        var tmensaje = '@ViewBag.MesajeExito';
+			        var tmensajeTecnico = '@ViewBag.MesajeTenico';
+			        var tTipoMensaje = '@ViewBag.TipoMensaje';
+			        var accion = '@ViewBag.Accion';
+			        if (accion == "OK") {
+			            
+			            MostrarMensaje(tmensaje, tmensajeTecnico, tTipoMensaje);
+			        }
+			        else {
+			            MostrarMensaje(data.Message, data.MensajeTecnico, data.TipoMensaje);
+			        }
+
+			    }
+                );
+
+            $('#' + mainTableContainer).jtable('load', {
+                tDesTipoProductoBus: $('#DesTipoProductoBus').val(),
+                tCategoriaProductoBus: $('#CategoriaProductoBus').val(),
+            });
+
             }
-        }
+        
 
         objetoAcciones.val("");
 

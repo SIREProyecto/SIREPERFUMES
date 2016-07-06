@@ -113,13 +113,13 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
                     string mensajetecnico = string.Empty;
                     string tipomensaje = string.Empty;
 
-                    if (modelo.ConTipoProducto == null || modelo.ConTipoProducto == 0)
+                    if (modelo.ConTipoProducto == 0)
                     {
                         modelo.UsrIngreso = "SIRE";
                         modelo = modelo.IngresarTiposProductos();
 
                         mensajeAccion = Etiquetas.GenMes_IngresoExito;
-                        tipomensaje = Etiquetas.msgIconoConfirmar;
+                        tipomensaje = Etiquetas.msgIconoInformacion;
                         if (modelo.CodigoError != 0)
                         {
 
@@ -163,6 +163,50 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
 
         #endregion
 
+        #region Eliminar
+        [HttpPost]
+        public ActionResult Eliminar(Int16 codigo)
+        {
+            string estadoAccion = "OK";
+            string mensajeAccion = "";
+            string mensajetecnico = string.Empty;
+            string tipomensaje = string.Empty;
+
+            try
+            {
+                var modelo = new TiposProductosModel();
+                modelo.ConTipoProducto = codigo;
+                modelo = modelo.EliminarTiposProductos();
+                //mensajeAccion = Etiquetas.GenMes_EliminarExito;
+                //tipomensaje = Etiquetas.msgIconoInformacion;
+
+                if (modelo.CodigoError != 0)
+                {
+                    estadoAccion = "ERROR";
+                    mensajeAccion = Etiquetas.GenMes_EliminarError;
+                    mensajetecnico = modelo.DescripcionError;
+                    tipomensaje = Etiquetas.msgIconoError;
+                }
+
+                ViewBag.MesajeExito = Etiquetas.GenMes_EliminarExito; ;
+                    ViewBag.MesajeTenico =mensajetecnico;
+                    ViewBag.TipoMensaje = Etiquetas.msgIconoInformacion;
+                    ViewBag.Accion = "OK";
+                    return View();
+                //return Json(new { Result = estadoAccion, Message = mensajeAccion,
+                //                  MensajeTecnico = mensajetecnico,
+                //                  TipoMensaje = tipomensaje
+                //});
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
+        }
+
+
+        #endregion
+        
         #endregion
 
         private void GetDropdownlistTiposProductos() 

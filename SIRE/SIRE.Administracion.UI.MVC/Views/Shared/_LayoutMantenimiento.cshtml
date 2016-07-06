@@ -66,15 +66,7 @@
             });
 
         </script>
-        @*<table>
-            <tr>
-                <td rowspan="2">[ÍCONO]</td>
-                <td>Este es un mensaje para el usuario.</td>
-            </tr>
-            <tr>
-                <td>Este es un mensaje con la información técnica de la situación presentada.</td>
-            </tr>
-        </table>*@
+
         <script type="text/javascript">
             function LimpiarCampos() {
                 $('input').each(function () {
@@ -183,90 +175,13 @@
     <div id="body">
         @RenderSection("featured", required: false)
 
-        @*<section>
-            <div id="pizarraMensaje">
-                <div id="iconoMensaje"></div>
-                <div id="mensajeUsuario">
-                    <label></label>
-                </div>
-                <div id="mensajeTecnico">
-                    <label></label>
-
-                </div>
-            </div>
-
-            <script>
-                $('#pizarraMensaje').hide();
-            </script>*@
-
-     @*       @RenderBody()
-        </section>*@
+        
     </div>
-@*     <div>
-        @RenderSection("featured", required: false)
-    </div>*@
 
     <div>
         @RenderBody()
     </div>
-    @* <div id="divMostrarDatosDeAuditoria">
-        <table>
-        <tr>
-            <td>
-                <ol class="encabezadoInformacion">
-                    <li style="background-image: none;">
-                        <table>
-                            <tr>
-                                <td style="width: 160px;">
-                                    <label>Ingresado por</label>
-                                </td>
-                                <td>
-                                    <span id="usrIngreso"></span>
-                                </td>
-                            </tr>
-                        </table>
-                    </li>
-                    <li style="background-image: none;">
-                        <table>
-                            <tr>
-                                <td style="width: 160px;">
-                                    <label>Fecha de ingreso</label>
-                                </td>
-                                <td>
-                                    <span id="fecIngreso"></span>
-                                </td>
-                            </tr>
-                        </table>
-                    </li>
-                    <li style="background-image: none;">
-                        <table>
-                            <tr>
-                                <td style="width: 160px;">
-                                    <label>Modificado por</label>
-                                </td>
-                                <td>
-                                    <span id="usrModifico"></span>
-                                </td>
-                            </tr>
-                        </table>
-                    </li>
-                    <li style="background-image: none;">
-                        <table>
-                            <tr>
-                                <td style="width: 160px;">
-                                    <label>Última modificación</label>
-                                </td>
-                                <td>
-                                    <span id="fecModifico"></span>
-                                </td>
-                            </tr>
-                        </table>
-                    </li>
-                </ol>
-            </td>
-        </tr>
-    </table>
-    </div>*@
+   
     @RenderSection("scripts", required: false)
 </body>
 </html>

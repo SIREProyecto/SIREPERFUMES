@@ -32,7 +32,7 @@ namespace SIRE.Administracion.Ds
         DTO_TiposProductos ObtenerTiposProductos(Int16 ConTipoProducto);
         DTO_TiposProductos IngresarTiposProductos(DTO_TiposProductos dto);
         DTO_TiposProductos EditarTiposProductos(DTO_TiposProductos dto);
-
+        DTO_TiposProductos EliminarTiposProductos(DTO_TiposProductos dto);
         #endregion
 
         #region Categoria Productos

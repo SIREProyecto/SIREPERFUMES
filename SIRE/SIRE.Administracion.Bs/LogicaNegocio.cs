@@ -78,6 +78,11 @@ namespace SIRE.Administracion.Bs
             return AccesoDatos.Instancia.EditarTiposProductos(dto);
         }
 
+        public DTO_TiposProductos EliminarTiposProductos(DTO_TiposProductos dto)
+        {
+            return AccesoDatos.Instancia.EliminarTiposProductos(dto);
+        }
+
         public DTO_TiposProductos ObtenerTiposProductos(Int16 ConTipoProducto)
         {
             return AccesoDatos.Instancia.ObtenerTiposProductos(ConTipoProducto);

@@ -34,6 +34,8 @@ namespace SIRE.Administracion.UI.MVC.Utilitarios
         public const string GenMes_EdicionExito = "El registro fue modificado satisfactoriamente";
         public const string GenMes_IngresoError = "Se ha producido un error al ingresar el registro";
         public const string GenMes_EdicionError = "Se ha producido un error al modificar el registro";
+        public const string GenMes_EliminarExito = "El registro fue eliminado satisfactoriamente";
+        public const string GenMes_EliminarError = "Se ha producido un error al eliminar el registro";
 
         public const string msgIconoConfirmar = "C";
         public const string msgIconoPrecaucion = "A";

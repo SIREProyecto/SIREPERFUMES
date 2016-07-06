@@ -23,12 +23,7 @@
 
 @using (Html.BeginForm())
 {  
-    <div hidden="hidden" class="ErrorDB" id="Mensaje1">
-        <img id="Imagen" src="~/Images/Valid.png">
-        @ViewBag.MesajeExito
-    </div>
-    <div id="Mensaje3" class="DetalleDB" hidden="hidden">Detalles</div>
-    <div class="ErrorDB" id="Men3" hidden="hidden">@ViewBag.MesajeTenico</div>  
+
     
     @Html.ValidationSummary(true)
 

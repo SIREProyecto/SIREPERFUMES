@@ -165,7 +165,7 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
 
         #region Eliminar
         [HttpPost]
-        public ActionResult Eliminar(Int16 codigo)
+        public JsonResult Eliminar(Int16 codigo)
         {
             string estadoAccion = "OK";
             string mensajeAccion = "";
@@ -177,8 +177,8 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
                 var modelo = new TiposProductosModel();
                 modelo.ConTipoProducto = codigo;
                 modelo = modelo.EliminarTiposProductos();
-                //mensajeAccion = Etiquetas.GenMes_EliminarExito;
-                //tipomensaje = Etiquetas.msgIconoInformacion;
+                mensajeAccion = Etiquetas.GenMes_EliminarExito;
+                tipomensaje = Etiquetas.msgIconoInformacion;
 
                 if (modelo.CodigoError != 0)
                 {
@@ -192,11 +192,17 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
                     ViewBag.MesajeTenico =mensajetecnico;
                     ViewBag.TipoMensaje = Etiquetas.msgIconoInformacion;
                     ViewBag.Accion = "OK";
-                    return View();
-                //return Json(new { Result = estadoAccion, Message = mensajeAccion,
-                //                  MensajeTecnico = mensajetecnico,
-                //                  TipoMensaje = tipomensaje
-                //});
+                    
+                    
+                return Json(new
+                
+                {
+                        Result = estadoAccion,
+                        Message = mensajeAccion,
+                        MensajeTecnico = mensajetecnico,
+                        TipoMensaje = tipomensaje
+                
+                });
             }
             catch (Exception ex)
             {

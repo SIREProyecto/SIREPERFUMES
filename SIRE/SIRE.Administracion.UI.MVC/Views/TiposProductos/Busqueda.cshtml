@@ -44,16 +44,13 @@
                 '@Url.Action("Eliminar", "TiposProductos")',        // URL a la acción
 			    { codigo: value },
 			    function (data) {                    // Función de retorno exitoso
-			        var tmensaje = '@ViewBag.MesajeExito';
-			        var tmensajeTecnico = '@ViewBag.MesajeTenico';
-			        var tTipoMensaje = '@ViewBag.TipoMensaje';
-			        var accion = '@ViewBag.Accion';
-			        if (accion == "OK") {
+			        
+			        if (data.Result == "OK") {
 			            
-			            MostrarMensaje(tmensaje, tmensajeTecnico, tTipoMensaje);
+			            MostrarMensaje('prueba', '', 'I');
 			        }
 			        else {
-			            MostrarMensaje(data.Message, data.MensajeTecnico, data.TipoMensaje);
+			            MostrarMensaje("Se ha producido un error al eliminar el registro", "", "E");
 			        }
 
 			    }

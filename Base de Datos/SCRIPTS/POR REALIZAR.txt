@@ -1,0 +1,4 @@
+Actualizar modelo para el tema de compañias y adjuntar un logo.
+Crear en el modelo un catálogo general validar en que se puede utilizar
+actualizar la tabla de tipo de cambio para ver como manejo lo del historico cuando el tipo de cambio se actualiza
+

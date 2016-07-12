@@ -39,7 +39,7 @@ CREATE PROCEDURE pa_MantenimientoProductos
 	@pnumPageSize INT = NULL,
 	@pnumCurrentPage INT = NULL,
 	@pnumTotalRegistros INT = NULL OUTPUT,
-	@pConProductoOUT INT OUTPUT,
+	@pConProductoOUT INT = NULL OUTPUT,
 	@pConProducto INT 
 
 )
@@ -55,7 +55,14 @@ BEGIN
 		DECLARE @lnumOffSet3 INT
 
 		SET @lnumOffSet3 =  @pnumPageSize * (@pnumCurrentPage - 1)
-	
+		
+		IF @pCodProductoBUS = ''
+			SET @pCodProductoBUS = NULL
+
+		IF @pDesProductoBUS = ''
+			SET @pDesProductoBUS = NULL
+
+
 		SELECT @pnumTotalRegistros = COUNT(*) FROM  Productos   
 		WHERE  CodProducto = COALESCE(@pCodProductoBUS, CodProducto) AND
 			   DesProducto = COALESCE(@pDesProductoBUS, DesProducto) AND
@@ -69,14 +76,26 @@ BEGIN
 									 @pMarcaBUS SMALLINT = NULL,
 									 @pTipoProductoBUS SMALLINT = NULL '
 
-		SET @lSQLString3 = 'SELECT ConProveedor,NomProveedor,DesCompaniaProveedor,PrimerApellido,
-							SegundoApellido,Cargo,TelefonoTrabajo,TelefonoMovil,Direccion,CorreoElectronico,
-							RazonSocial,UsuarioIngreso,FechaIngreso,UsuarioModifico,FechaModifico,Compania 	' 
-							+ 'FROM	Proveedores  '
-							+
-							'WHERE ' + ' NomProveedor = COALESCE(@pNomProveedorBUS, NomProveedor) AND
-							 Cargo = COALESCE(@pCargoBUS, Cargo) ' +
-							' ORDER BY ' + COALESCE(@pnomCampoOrdenBUS, 'ConProveedor') + 
+		SET @lSQLString3 = 'SELECT P.ConProducto,P.DesProducto,P.CodProducto,P.MinimoStock,P.MaximoStock,
+							P.NuevoInventario,P.Suspendido,P.DesRutaImagen,P.NomImagen,P.CategoriaProducto,
+							P.TipoProducto,P.Marca,P.Proveedor,P.TipoGenero,P.EstadoPorProceso,P.UsuarioIngreso,P.FechaIngreso,
+							P.UsuarioModifico,P.FechaModifico,P.Compania,P.Presentacion,C.DesCategoriaProducto,
+							T.DesTipoProducto,M.DesMarca,PR.NomProveedor,G.DesTipoGenero,E.Estado,PE.DesPresentacion 	' 
+							+ 'FROM Productos P  '
+							+ ' INNER JOIN CategoriaProducto C ON P.CategoriaProducto = C.ConCategoriaProducto '
+							+ ' INNER JOIN TipoProducto T ON P.TipoProducto = T.ConTipoProducto '
+							+ ' INNER JOIN Marcas M ON P.Marca = M.ConMarca '
+							+ ' INNER JOIN Proveedores PR ON P.Proveedor = PR.ConProveedor '
+							+ ' INNER JOIN TipoGenero G ON P.TipoGenero = G.ConTipoGenero '
+							+ ' INNER JOIN EstadosPorProceso E ON P.EstadoPorProceso = E.ConEstadoPorProceso '
+							+ ' INNER JOIN Presentacion PE ON P.Presentacion  = PE.ConPresentacion ' +
+							' WHERE ' +
+							' P.CodProducto = COALESCE(@pCodProductoBUS, P.CodProducto) AND ' +
+							' P.DesProducto = COALESCE(@pDesProductoBUS, P.DesProducto) AND ' +
+							' P.CategoriaProducto = COALESCE(@pCategoriaProductoBUS, P.CategoriaProducto) AND ' +
+							' P.Marca = COALESCE(@pMarcaBUS, P.Marca) AND ' +
+							' P.TipoProducto = COALESCE(@pTipoProductoBUS, P.TipoProducto) AND ' +
+							' ORDER BY ' + COALESCE(@pnomCampoOrdenBUS, 'P.ConProducto') + 
 							CASE @pnumPageSize
 							WHEN -1 THEN ''
 							ELSE
@@ -85,41 +104,49 @@ BEGIN
 							END
 		
 
-		EXECUTE sp_executesql @lSQLString3, @ldesParmDefinition3, @pNomProveedorBUS = @pNomProveedorBUS, @pCargoBUS = @pCargoBUS
+		EXECUTE sp_executesql @lSQLString3, @ldesParmDefinition3, @pCodProductoBUS = @pCodProductoBUS, @pDesProductoBUS = @pDesProductoBUS,
+		@pCategoriaProductoBUS = @pCategoriaProductoBUS,@pMarcaBUS = @pMarcaBUS,@pTipoProductoBUS = @pTipoProductoBUS
 
 	END
 
-	
 	IF @pTipoOperacion = 2
 	BEGIN
 
-		INSERT INTO Proveedores (NomProveedor,DesCompaniaProveedor,PrimerApellido,
-					SegundoApellido,Cargo,TelefonoTrabajo,TelefonoMovil,Direccion,CorreoElectronico,
-					RazonSocial,UsuarioIngreso,Compania)
-		VALUES     (@pNomProveedor,@pDesCompaniaProveedor,@pPrimerApellido,
-					@pTelefonoTrabajo,@pTelefonoTrabajo,@pTelefonoTrabajo,@pTelefonoMovil,@pDireccion,@pCorreoElectronico,
-					@pRazonSocial, @pUsuarioIngreso, @pCompania)
-		SET @pConProveedorOUT = @@IDENTITY
+		INSERT INTO Productos 
+		(DesProducto,CodProducto,MinimoStock,MaximoStock,NuevoInventario,Suspendido,
+		DesRutaImagen,NomImagen,CategoriaProducto,TipoProducto,Marca,Proveedor,
+		TipoGenero,EstadoPorProceso,UsuarioIngreso,Compania,Presentacion)
+		VALUES
+		(@pDesProducto,@pCodProducto,@pMinimoStock,@pMaximoStock,@pNuevoInventario,@pSuspendido,
+		@pDesRutaImagen,@pNomImagen,@pCategoriaProducto,@pTipoProducto,@pMarca,@pProveedor,
+		@pTipoGenero,@pEstadoPorProceso,@pUsuarioIngreso,@pCompania,@pPresentacion)
+		SET @pConProductoOUT = @@IDENTITY
 	END
 
 	
 	IF @pTipoOperacion = 3
 	BEGIN
 
-		UPDATE Proveedores
-		SET    NomProveedor = @pNomProveedor,
-			   DesCompaniaProveedor = @pDesCompaniaProveedor,
-			   PrimerApellido = @pPrimerApellido,
-			   SegundoApellido = @pTelefonoTrabajo,
-			   Cargo = @pTelefonoTrabajo,
-			   TelefonoTrabajo = @pTelefonoTrabajo,
-			   TelefonoMovil = @pTelefonoMovil,
-			   Direccion = @pDireccion,
-			   CorreoElectronico = @pCorreoElectronico,
-			   RazonSocial = @pRazonSocial,
+		UPDATE Productos
+		SET    DesProducto = @pDesProducto,
+			   CodProducto = @pCodProducto,
+			   MinimoStock =  @pMinimoStock,
+			   MaximoStock =  @pMaximoStock,
+			   NuevoInventario =  @pNuevoInventario,
+			   Suspendido =  @pSuspendido,
+			   DesRutaImagen =  @pDesRutaImagen,
+			   NomImagen =  @pNomImagen,
+			   CategoriaProducto =  @pCategoriaProducto,
+			   TipoProducto =  @pTipoProducto,
+			   Marca =  @pMarca,
+			   Proveedor =  @pProveedor,
+		       TipoGenero =  @pTipoGenero,
+			   EstadoPorProceso =  @pEstadoPorProceso,
+			   Compania =  @pCompania,
+			   Presentacion =  @pPresentacion,
 			   UsuarioModifico = @pUsuarioModifico,
 			   FechaModifico = GETDATE()
-		WHERE  ConProveedor = @pConProveedor
+		WHERE  ConProducto = @pConProducto
 		
 
 	END
@@ -127,12 +154,20 @@ BEGIN
 	
 	IF @pTipoOperacion = 4
 	BEGIN
-		SELECT  ConProveedor,NomProveedor,DesCompaniaProveedor,PrimerApellido,
-				SegundoApellido,Cargo,TelefonoTrabajo,TelefonoMovil,
-				Direccion,CorreoElectronico,RazonSocial,UsuarioIngreso,
-				FechaIngreso,UsuarioModifico,FechaModifico,Compania  
-		FROM	Proveedores 
-		WHERE   ConProveedor = @pConProveedor
+		SELECT P.ConProducto,P.DesProducto,P.CodProducto,P.MinimoStock,P.MaximoStock,
+		P.NuevoInventario,P.Suspendido,P.DesRutaImagen,P.NomImagen,P.CategoriaProducto,
+		P.TipoProducto,P.Marca,P.Proveedor,P.TipoGenero,P.EstadoPorProceso,P.UsuarioIngreso,P.FechaIngreso,
+		P.UsuarioModifico,P.FechaModifico,P.Compania,P.Presentacion,C.DesCategoriaProducto,
+		T.DesTipoProducto,M.DesMarca,PR.NomProveedor,G.DesTipoGenero,E.Estado,PE.DesPresentacion
+		FROM Productos P
+		INNER JOIN CategoriaProducto C ON P.CategoriaProducto = C.ConCategoriaProducto
+		INNER JOIN TipoProducto T ON P.TipoProducto = T.ConTipoProducto
+		INNER JOIN Marcas M ON P.Marca = M.ConMarca
+		INNER JOIN Proveedores PR ON P.Proveedor = PR.ConProveedor
+		INNER JOIN TipoGenero G ON P.TipoGenero = G.ConTipoGenero
+		INNER JOIN EstadosPorProceso E ON P.EstadoPorProceso = E.ConEstadoPorProceso
+		INNER JOIN Presentacion PE ON P.Presentacion  = PE.ConPresentacion
+		WHERE P.ConProducto = @pConProducto
 		 
 	END
 
@@ -140,8 +175,8 @@ BEGIN
 	IF @pTipoOperacion = 5
 	BEGIN
 		
-		DELETE FROM Proveedores
-		WHERE  ConProveedor = @pConProveedor
+		DELETE FROM Productos
+		WHERE ConProducto = @pConProducto
 	END
 
 END

@@ -27,6 +27,12 @@ CREATE PROCEDURE pa_MantenimientoMarcas
 AS 
 
 BEGIN
+	
+	IF @pTipoOperacion = 55
+	BEGIN
+
+		SELECT ConMarca,DesMarca FROM Marcas
+	END
 
 	IF @pTipoOperacion = 1
 	BEGIN

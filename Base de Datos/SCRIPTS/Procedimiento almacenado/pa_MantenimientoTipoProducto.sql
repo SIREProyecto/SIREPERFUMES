@@ -30,6 +30,12 @@ AS
 
 BEGIN
 
+	IF @pTipoOperacion = 55
+	BEGIN
+
+		SELECT ConTipoProducto, DesTipoProducto FROM TipoProducto
+	END
+
 	IF @pTipoOperacion = 1
 	BEGIN
 		

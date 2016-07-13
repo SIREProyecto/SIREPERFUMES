@@ -48,6 +48,7 @@
     <Compile Include="Generales\DTO_ParametrosGenerales.cs" />
     <Compile Include="Generales\DTO_TiposProductos.cs" />
     <Compile Include="IMantenimiento.cs" />
+    <Compile Include="Productos\DTO_Productos.cs" />
     <Compile Include="_ConexionBD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

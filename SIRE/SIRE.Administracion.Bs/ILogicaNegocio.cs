@@ -1,5 +1,6 @@
 ﻿using SIRE.Administracion.Datos;
 using SIRE.Administracion.Datos.Generales;
+using SIRE.Administracion.Datos.Productos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,10 +36,19 @@ namespace SIRE.Administracion.Bs
         DTO_TiposProductos EliminarTiposProductos(DTO_TiposProductos dto);
         #endregion
 
-        #region
+        #region Categoria Productos
 
         List<DTO_CategoriaProducto> ObtenerCategoriasProductos();
 
+        #endregion
+
+        #region Productos
+
+        List<DTO_Productos> ConsultarProductos(DTO_ProductosConsulta criterios, ref int tnumTotalRegistros);
+        DTO_Productos IngresarProductos(DTO_Productos dto);
+        DTO_Productos EditarProductos(DTO_Productos dto);
+        DTO_Productos ObtenerProductos(int ConProducto);
+        DTO_Productos EliminarProductos(DTO_Productos dto);
         #endregion
 
 

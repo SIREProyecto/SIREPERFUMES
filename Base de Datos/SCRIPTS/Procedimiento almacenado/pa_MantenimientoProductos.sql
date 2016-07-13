@@ -40,7 +40,7 @@ CREATE PROCEDURE pa_MantenimientoProductos
 	@pnumCurrentPage INT = NULL,
 	@pnumTotalRegistros INT = NULL OUTPUT,
 	@pConProductoOUT INT = NULL OUTPUT,
-	@pConProducto INT 
+	@pConProducto INT = NULL 
 
 )
 AS 

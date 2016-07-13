@@ -1,5 +1,6 @@
 ﻿using SIRE.Administracion.Datos;
 using SIRE.Administracion.Datos.Generales;
+using SIRE.Administracion.Datos.Productos;
 using SIRE.Administracion.Ds;
 using System;
 using System.Collections.Generic;
@@ -95,6 +96,35 @@ namespace SIRE.Administracion.Bs
         public List<DTO_CategoriaProducto> ObtenerCategoriasProductos()
         {
             return AccesoDatos.Instancia.ObtenerCategoriasProductos();
+        }
+
+        #endregion
+
+        #region Productos
+
+        public List<DTO_Productos> ConsultarProductos(DTO_ProductosConsulta criterios, ref int tnumTotalRegistros)
+        {
+            return AccesoDatos.Instancia.ConsultarProductos(criterios, ref tnumTotalRegistros);
+        }
+
+        public DTO_Productos IngresarProductos(DTO_Productos dto)
+        {
+            return AccesoDatos.Instancia.IngresarProductos(dto);
+        }
+
+        public DTO_Productos EditarProductos(DTO_Productos dto)
+        {
+            return AccesoDatos.Instancia.EditarProductos(dto);
+        }
+
+        public DTO_Productos EliminarProductos(DTO_Productos dto)
+        {
+            return AccesoDatos.Instancia.EliminarProductos(dto);
+        }
+
+        public DTO_Productos ObtenerProductos(int ConProducto)
+        {
+            return AccesoDatos.Instancia.ObtenerProductos(ConProducto);
         }
 
         #endregion

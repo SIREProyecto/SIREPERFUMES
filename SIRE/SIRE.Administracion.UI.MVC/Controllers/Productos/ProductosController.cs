@@ -1,4 +1,4 @@
-﻿using SIRE.Administracion.UI.MVC.Models.Generales;
+﻿using SIRE.Administracion.UI.MVC.Models.Productos;
 using SIRE.Administracion.UI.MVC.Utilitarios;
 using System;
 using System.Collections.Generic;
@@ -7,32 +7,29 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace SIRE.Administracion.UI.MVC.Controllers.Generales
+namespace SIRE.Administracion.UI.MVC.Controllers.Productos
 {
-    public class TiposProductosController : Controller
+    public class ProductosController : Controller
     {
-        //
-        // GET: /TiposProductos/
+        #region GET /Productos/
 
         public ActionResult Index()
         {
             return View();
         }
-
-          
+        
         public ActionResult Busqueda()
         {
-            GetDropdownlistTiposProductos();
-
+   
             return View();
 
         }
 
-
-        public ActionResult Editar(Int16 codigo, string tInfo_Mensaje = null, string tInfo_Tecnica = null, string ttipo_Mensaje = null)
+        public ActionResult Editar(int codigo, string tInfo_Mensaje = null, string tInfo_Tecnica = null, string ttipo_Mensaje = null)
         {
-            GetDropdownlistTiposProductos();
-            TiposProductosModel modelo = new TiposProductosModel();
+           
+            ProductosModel modelo = new ProductosModel();
+
             if (tInfo_Mensaje != null)
             {
                 ViewBag.MesajeExito = tInfo_Mensaje;
@@ -49,37 +46,44 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
 
             if (codigo != 0)
             {
-                modelo = modelo.ObtenerTiposProductos(codigo);
+                modelo = modelo.ObtenerProductos(codigo);
             }
             return View(modelo);
         }
 
-      
-        #region POST /Tipos de Productos/
+        #endregion
+
+        #region POST /Productos/
+
+        #region Buscar
 
         [HttpPost]
-        public JsonResult Buscar(string tDesTipoProductoBus, Int16 tCategoriaProductoBus = 0,
+        public JsonResult Buscar(string tCodProductoBus, string tDesProductoBus,
+            Int16 tCategoriaProductoBus = 0, Int16 tTipoProductoBus = 0, Int16 tMarcaBus = 0,
         int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
         {
             int lnumTotalRegistros = 0;
 
             try
             {
-                var modeloConsulta = new TiposProductosModelConsulta()
+                var modeloConsulta = new ProductosModelConsulta()
                 {
-                    DesTipoProductoBus = tDesTipoProductoBus,
-                    CategoriaProductoBus = tCategoriaProductoBus,
+                    CodProducto = tCodProductoBus,
+                    DesProducto = tDesProductoBus,
+                    CategoriaProducto = tCategoriaProductoBus,
+                    TipoProducto = tTipoProductoBus,
+                    Marca = tMarcaBus,
                     StartIndex = jtStartIndex,
                     PageSize = jtPageSize,
                     OrderField = jtSorting
                 };
 
-                var modelo = new TiposProductosModel();
+                var modelo = new ProductosModel();
 
-                var resultado = new List<TiposProductosModel>();
+                var resultado = new List<ProductosModel>();
 
 
-                resultado = modelo.ConsultarTiposProductos(modeloConsulta, ref lnumTotalRegistros);
+                resultado = modelo.ConsultarProductos(modeloConsulta, ref lnumTotalRegistros);
 
 
                 return Json(new { Result = "OK", Records = resultado, TotalRecordCount = lnumTotalRegistros });
@@ -90,11 +94,13 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
             }
         }
 
+        #endregion
+
         #region Editar
 
         [HttpPost]
         [OutputCache(NoStore = true, Duration = 1)]
-        public ActionResult Editar(TiposProductosModel modelo)
+        public ActionResult Editar(ProductosModel modelo)
         {
 
 
@@ -102,21 +108,21 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
             {
                 if (!ModelState.IsValid)
                 {
-                    GetDropdownlistTiposProductos();
+
                     return View(modelo);
                 }
 
                 else
                 {
-                    GetDropdownlistTiposProductos();
+
                     string mensajeAccion = string.Empty;
                     string mensajetecnico = string.Empty;
                     string tipomensaje = string.Empty;
 
-                    if (modelo.ConTipoProducto == 0)
+                    if (modelo.ConProducto == 0)
                     {
                         modelo.UsrIngreso = "SIRE";
-                        modelo = modelo.IngresarTiposProductos();
+                        modelo = modelo.IngresarProductos();
 
                         mensajeAccion = Etiquetas.GenMes_IngresoExito;
                         tipomensaje = Etiquetas.msgIconoInformacion;
@@ -131,7 +137,7 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
                     else
                     {
 
-                        modelo = modelo.EditarTiposProductos();
+                        modelo = modelo.EditarProductos();
                         mensajeAccion = Etiquetas.GenMes_EdicionExito;
                         tipomensaje = Etiquetas.msgIconoConfirmar;
                         if (modelo.CodigoError != 0)
@@ -143,16 +149,16 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
                         }
                     }
 
-                return RedirectToAction("Editar", new RouteValueDictionary{
-                {"controller", "TiposProductos"},
+                    return RedirectToAction("Editar", new RouteValueDictionary{
+                {"controller", "Productos"},
                 {"action", "Editar"},
-                {"codigo", modelo.ConTipoProducto},
+                {"codigo", modelo.ConProducto},
                 {"tInfo_Mensaje", mensajeAccion},
                 {"tInfo_Tecnica",mensajetecnico},
                 {"ttipo_Mensaje",tipomensaje}});
+                }
             }
-            }
-               
+
             catch (Exception ex)
             {
                 return Json(new { Result = "ERROR", Message = ex.Message });
@@ -165,7 +171,7 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
 
         #region Eliminar
         [HttpPost]
-        public JsonResult Eliminar(Int16 codigo)
+        public JsonResult Eliminar(int codigo)
         {
             string estadoAccion = "OK";
             string mensajeAccion = "";
@@ -174,9 +180,9 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
 
             try
             {
-                var modelo = new TiposProductosModel();
-                modelo.ConTipoProducto = codigo;
-                modelo = modelo.EliminarTiposProductos();
+                var modelo = new ProductosModel();
+                modelo.ConProducto = codigo;
+                modelo = modelo.EliminarProductos();
                 mensajeAccion = Etiquetas.GenMes_EliminarExito;
                 tipomensaje = Etiquetas.msgIconoInformacion;
 
@@ -188,20 +194,14 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
                     tipomensaje = Etiquetas.msgIconoError;
                 }
 
-                ViewBag.MesajeExito = Etiquetas.GenMes_EliminarExito; ;
-                    ViewBag.MesajeTenico =mensajetecnico;
-                    ViewBag.TipoMensaje = Etiquetas.msgIconoInformacion;
-                    ViewBag.Accion = "OK";
-                    
-                    
                 return Json(new
-                
+
                 {
-                        Result = estadoAccion,
-                        Message = mensajeAccion,
-                        MensajeTecnico = mensajetecnico,
-                        TipoMensaje = tipomensaje
-                
+                    Result = estadoAccion,
+                    Message = mensajeAccion,
+                    MensajeTecnico = mensajetecnico,
+                    TipoMensaje = tipomensaje
+
                 });
             }
             catch (Exception ex)
@@ -212,15 +212,9 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Generales
 
 
         #endregion
-        
+
         #endregion
 
-        private void GetDropdownlistTiposProductos() 
-        {
-            ViewBag.ComboCategoriaProducto = Comun.DropdownlistCategoriasProductos();
-        }
-
-          
 
     }
 }

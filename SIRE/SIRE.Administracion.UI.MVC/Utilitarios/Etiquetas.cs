@@ -25,6 +25,25 @@ namespace SIRE.Administracion.UI.MVC.Utilitarios
         public const string CategoriaProducto = "Categoría Producto";
     
         #endregion
+        
+        #region Productos
+
+        public const string DesProducto = "Descripción";
+        public const string CodProducto = "Código";
+        public const string MinimoStock = "Mínimo Stock";
+        public const string MaximoStock = "Máximo Stock";
+        public const string NuevoInventario = "Nuevo Inventario";
+        public const string Suspendido = "Suspendido";
+        public const string DesRutaImagen = "Imagen";
+        public const string Categoria_Producto = "Categoría Producto";
+        public const string TipoProducto = "Tipo Producto";
+        public const string Marca = "Marca";
+        public const string Proveedor = "Proveedor";
+        public const string TipoGenero = "Tipo Género";
+        public const string EstadoPorProceso = "Estado";
+        public const string Presentacion = "Presentación";
+
+        #endregion
 
         #region Mensajes
         public const string CAMPO_REQUERIDO = "*";

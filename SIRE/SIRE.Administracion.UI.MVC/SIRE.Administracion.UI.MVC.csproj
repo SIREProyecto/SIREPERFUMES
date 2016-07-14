@@ -193,6 +193,7 @@
     <Compile Include="Controllers\Generales\ParametrosGeneralesController.cs" />
     <Compile Include="Controllers\Generales\TiposProductosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Productos\ProductosController.cs" />
     <Compile Include="Controllers\TipoProductoController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -203,6 +204,7 @@
     <Compile Include="Models\Generales\ParametrosGeneralesModel.cs" />
     <Compile Include="Models\Generales\TiposProductosModel.cs" />
     <Compile Include="Models\MantenimientoGeneralModel.cs" />
+    <Compile Include="Models\Productos\ProductosModel.cs" />
     <Compile Include="Models\TipoProductoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilitarios\Comun.cs" />

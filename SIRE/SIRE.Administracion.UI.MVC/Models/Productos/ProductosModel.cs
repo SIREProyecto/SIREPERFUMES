@@ -84,7 +84,6 @@ namespace SIRE.Administracion.UI.MVC.Models.Productos
 
         #endregion
 
-
         #region Consultar
 
         public List<ProductosModel> ConsultarProductos(ProductosModelConsulta criterios, ref int tnumTotalRegistros)

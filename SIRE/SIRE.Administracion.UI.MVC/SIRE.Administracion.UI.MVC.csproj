@@ -480,6 +480,9 @@
     <Content Include="Views\TiposProductos\Busqueda.cshtml" />
     <Content Include="Views\TiposProductos\Index.cshtml" />
     <Content Include="Views\TiposProductos\Editar.cshtml" />
+    <Content Include="Views\Productos\Index.cshtml" />
+    <Content Include="Views\Productos\Busqueda.cshtml" />
+    <Content Include="Views\Productos\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

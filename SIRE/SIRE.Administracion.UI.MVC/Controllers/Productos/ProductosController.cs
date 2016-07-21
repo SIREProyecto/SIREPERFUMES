@@ -20,14 +20,14 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Productos
         
         public ActionResult Busqueda()
         {
-   
+            GetDropdownlistProductos();
             return View();
 
         }
 
         public ActionResult Editar(int codigo, string tInfo_Mensaje = null, string tInfo_Tecnica = null, string ttipo_Mensaje = null)
         {
-           
+            GetDropdownlistProductos();
             ProductosModel modelo = new ProductosModel();
 
             if (tInfo_Mensaje != null)
@@ -102,7 +102,7 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Productos
         [OutputCache(NoStore = true, Duration = 1)]
         public ActionResult Editar(ProductosModel modelo)
         {
-
+            GetDropdownlistProductos();
 
             try
             {
@@ -212,6 +212,13 @@ namespace SIRE.Administracion.UI.MVC.Controllers.Productos
 
 
         #endregion
+
+        private void GetDropdownlistProductos()
+        {
+            ViewBag.ComboCategoriaProducto = Comun.DropdownlistCategoriasProductos();
+            ViewBag.ComboTipoProducto = Comun.DropdownlistTiposProductos();
+            ViewBag.ComboMarca = Comun.DropdownlistMarcas();
+        }
 
         #endregion
 

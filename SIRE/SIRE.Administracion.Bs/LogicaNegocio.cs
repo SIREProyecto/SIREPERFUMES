@@ -89,6 +89,11 @@ namespace SIRE.Administracion.Bs
             return AccesoDatos.Instancia.ObtenerTiposProductos(ConTipoProducto);
         }
 
+        public List<DTO_TiposProductos> ComboTiposProductos()
+        {
+            return AccesoDatos.Instancia.ComboTiposProductos();
+        }
+
         #endregion
 
         #region Categoria Producto
@@ -125,6 +130,15 @@ namespace SIRE.Administracion.Bs
         public DTO_Productos ObtenerProductos(int ConProducto)
         {
             return AccesoDatos.Instancia.ObtenerProductos(ConProducto);
+        }
+
+        #endregion
+
+        #region Marcas
+
+        public List<DTO_Marcas> ComboMarcas()
+        {
+            return AccesoDatos.Instancia.ComboMarcas();
         }
 
         #endregion

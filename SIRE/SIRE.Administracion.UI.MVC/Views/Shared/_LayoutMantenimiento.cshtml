@@ -53,18 +53,18 @@
             $('#summary').hide();
         </script>
 
-        <script type="text/javascript">
+       @* <script type="text/javascript">
 
             $(document).ready(function () {
                 setTimeout(function () {
 
-                    $("#summary").fadeOut(1500);
+                    $("#summary").fadeOut(1500).removeClass('informacion').css('display', 'none !important');
 
                 }, 3000);
 
             });
 
-        </script>
+        </script>*@
 
         <script type="text/javascript">
             function LimpiarCampos() {
@@ -182,5 +182,18 @@
     </div>
    
     @RenderSection("scripts", required: false)
+
+     <script type="text/javascript">
+
+         $(document).ready(function () {
+             setTimeout(function () {
+
+                 $("#summary").fadeOut(1500).removeClass('informacion').css('display', 'none !important');
+
+             }, 3000);
+
+         });
+
+        </script>
 </body>
 </html>

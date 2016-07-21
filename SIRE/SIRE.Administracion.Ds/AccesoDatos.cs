@@ -600,7 +600,40 @@ namespace SIRE.Administracion.Ds
 
             return dto;
         }
-        
+
+        public List<DTO_TiposProductos> ComboTiposProductos()
+        {
+
+            List<DTO_TiposProductos> resultado = new List<DTO_TiposProductos>();
+
+            try
+            {
+
+                String StrSQL = String.Format("SELECT ConTipoProducto,DesTipoProducto FROM TipoProducto");
+                DbCommand varCmd = sqlDataBase.GetSqlStringCommand(StrSQL);
+                IDataReader dr = sqlDataBase.ExecuteReader(varCmd);
+
+                while (dr.Read())
+                {
+                    DTO_TiposProductos fila = new DTO_TiposProductos();
+                    fila.ConTipoProducto = dr.GetInt16(dr.GetOrdinal("ConTipoProducto"));
+                    fila.DesTipoProducto = dr.GetString(dr.GetOrdinal("DesTipoProducto"));
+
+                    resultado.Add(fila);
+                }//Fin del While
+
+
+                dr.Close();
+                dr.Dispose();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                throw;
+            }
+
+            return resultado;
+        }
 
         #endregion
 
@@ -1020,6 +1053,44 @@ namespace SIRE.Administracion.Ds
 
 
             return dto;
+        }
+
+        #endregion
+
+        #region Marcas
+
+        public List<DTO_Marcas> ComboMarcas()
+        {
+
+            List<DTO_Marcas> resultado = new List<DTO_Marcas>();
+
+            try
+            {
+
+                String StrSQL = String.Format("SELECT ConMarca,DesMarca FROM Marcas");
+                DbCommand varCmd = sqlDataBase.GetSqlStringCommand(StrSQL);
+                IDataReader dr = sqlDataBase.ExecuteReader(varCmd);
+
+                while (dr.Read())
+                {
+                    DTO_Marcas fila = new DTO_Marcas();
+                    fila.ConMarca = dr.GetInt16(dr.GetOrdinal("ConMarca"));
+                    fila.DesMarca = dr.GetString(dr.GetOrdinal("DesMarca"));
+
+                    resultado.Add(fila);
+                }//Fin del While
+
+
+                dr.Close();
+                dr.Dispose();
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                throw;
+            }
+
+            return resultado;
         }
 
         #endregion

@@ -1,0 +1,183 @@
+﻿@model SIRE.Administracion.UI.MVC.Models.Productos.ProductosModel
+@using SIRE.Administracion.UI.MVC.Utilitarios;
+
+@{
+    ViewBag.Title = "Mantenimiento de Productos: Edición";
+    Layout = "~/Views/Shared/_LayoutMantenimiento.cshtml";
+}
+
+@{if (Model.ConProducto != 0)
+  {
+    <script>
+
+        /****Mensajes de error o exito****/
+        var tmensaje = '@ViewBag.MesajeExito';
+        var tmensajeTecnico = '@ViewBag.MesajeTenico';
+        var tTipoMensaje = '@ViewBag.TipoMensaje';
+
+        MostrarMensaje(tmensaje, tmensajeTecnico, tTipoMensaje)
+
+    </script>
+  }
+}
+
+@using (Html.BeginForm())
+{  
+
+    
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.ConProducto)
+    
+    <table>
+        <tr>
+            <td>
+                <div>
+                    @Html.LabelFor(model => model.CodProducto)
+                </div>
+            </td>
+            <td>
+                @Html.Label(Etiquetas.CAMPO_REQUERIDO, new { @class = "mensajeRequerido" })
+            </td>
+            <td>
+                <div>
+                    @Html.TextBoxFor(model => model.CodProducto, new { @clean = "true", maxlength = "30" })
+                    @Html.ValidationMessageFor(modelo => modelo.CodProducto)
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div>
+                    @Html.LabelFor(model => model.DesProducto)
+                </div>
+            </td>
+            <td>
+                @Html.Label(Etiquetas.CAMPO_REQUERIDO, new { @class = "mensajeRequerido" })
+            </td>
+            <td>
+                <div>
+                    @Html.TextBoxFor(model => model.DesProducto, new { @clean = "true", maxlength = "60" })
+                    @Html.ValidationMessageFor(modelo => modelo.DesProducto)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.LabelFor(model => model.MinimoStock)
+                </div>
+            </td>
+            <td>
+                @Html.Label(Etiquetas.CAMPO_REQUERIDO, new { @class = "mensajeRequerido" })
+            </td>
+            <td>
+                <div>
+                    @Html.TextBoxFor(model => model.MinimoStock, new { @clean = "true", maxlength = "60" })
+                    @Html.ValidationMessageFor(modelo => modelo.MinimoStock)
+                </div>
+            </td>
+        </tr>
+         
+              <tr>
+            <td>
+                <div>
+                    @Html.LabelFor(model => model.MaximoStock)
+                </div>
+            </td>
+            <td>
+                @Html.Label(Etiquetas.CAMPO_REQUERIDO, new { @class = "mensajeRequerido" })
+            </td>
+            <td>
+                <div>
+                    @Html.TextBoxFor(model => model.MaximoStock, new { @clean = "true", maxlength = "60" })
+                    @Html.ValidationMessageFor(modelo => modelo.MaximoStock)
+                </div>
+            </td>
+        </tr>
+              <tr>
+            <td>
+                <div>
+                    @Html.LabelFor(model => model.Suspendido)
+                </div>
+            </td>
+            <td>
+                @Html.Label(Etiquetas.CAMPO_REQUERIDO, new { @class = "mensajeRequerido" })
+            </td>
+            <td>
+                <div>
+                    @Html.CheckBoxFor(model => model.Suspendido, new { @clean = "true" })
+                    @Html.ValidationMessageFor(modelo => modelo.Suspendido)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    @Html.LabelFor(model => model.CategoriaProducto)
+                </div>
+            </td>
+            <td>
+                @Html.Label(Etiquetas.CAMPO_REQUERIDO, new { @class = "mensajeRequerido" })
+            </td>
+            <td>
+                <div>
+                    @Html.DropDownListFor(model => model.CategoriaProducto, new SelectList(ViewBag.ComboCategoriaProducto, "VALUE", "TEXT").OrderBy(m => m.Text), Etiquetas.GenSeleccionar, new { @class = "CampoDropdownlist", @clean = "true" })
+                    @Html.ValidationMessageFor(modelo => modelo.CategoriaProducto)
+                </div>
+            </td>
+        </tr>
+                <tr>
+            <td>
+                <div>
+                    @Html.LabelFor(model => model.TipoProducto)
+                </div>
+            </td>
+            <td>
+                @Html.Label(Etiquetas.CAMPO_REQUERIDO, new { @class = "mensajeRequerido" })
+            </td>
+            <td>
+                <div>
+                    @Html.DropDownListFor(model => model.TipoProducto, new SelectList(ViewBag.ComboTipoProducto, "VALUE", "TEXT").OrderBy(m => m.Text), Etiquetas.GenSeleccionar, new { @class = "CampoDropdownlist", @clean = "true" })
+                    @Html.ValidationMessageFor(modelo => modelo.TipoProducto)
+                </div>
+            </td>
+        </tr>
+                      <tr>
+            <td>
+                <div>
+                    @Html.LabelFor(model => model.Marca)
+                </div>
+            </td>
+            <td>
+                @Html.Label(Etiquetas.CAMPO_REQUERIDO, new { @class = "mensajeRequerido" })
+            </td>
+            <td>
+                <div>
+                    @Html.DropDownListFor(model => model.Marca, new SelectList(ViewBag.ComboMarca, "VALUE", "TEXT").OrderBy(m => m.Text), Etiquetas.GenSeleccionar, new { @class = "CampoDropdownlist", @clean = "true" })
+                    @Html.ValidationMessageFor(modelo => modelo.Marca)
+                </div>
+            </td>
+        </tr>
+
+    </table>
+    <table>
+        <tr>
+            <td>
+                <br />
+                <div class="AlinIzq">
+                    <button type="submit" id="Salvar">Guardar</button>
+                    @*<button type="button" id="catalogo">Catálogo</button>*@
+                    <button type="button" id="Limpiar" onclick="LimpiarCampos()">Limpiar</button>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

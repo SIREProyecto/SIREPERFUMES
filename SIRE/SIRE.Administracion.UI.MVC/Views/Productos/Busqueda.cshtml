@@ -1,7 +1,7 @@
-﻿@model SIRE.Administracion.UI.MVC.Models.Generales.TiposProductosModelConsulta
+﻿@model SIRE.Administracion.UI.MVC.Models.Productos.ProductosModelConsulta
 @using SIRE.Administracion.UI.MVC.Utilitarios;
 @{
-    ViewBag.Title = "Mantenimiento de Tipos de Productos: Búsqueda";
+    ViewBag.Title = "Mantenimiento de Productos: Búsqueda";
     Layout = "~/Views/Shared/_LayoutMantenimiento.cshtml";
 }
 
@@ -12,7 +12,7 @@
     });
 
     var estadosDisponibles = 'EDITAR,ELIMINAR,ACTIVAR';
-    var mainTableContainer = "TiposProductosTableContainer";
+    var mainTableContainer = "ProductosTableContainer";
 
     function IrEditar(llave, valor) {
         window.parent.parent.dispararEditar(llave, valor);
@@ -34,19 +34,18 @@
 
         if (key == "btnEliminar") {
 
-            if (!confirm('El registro será eliminado. ¿Desea continuar?'))
-            {
+            if (!confirm('El registro será eliminado. ¿Desea continuar?')) {
                 return;
             }
-    
+
             $.post(
 
-                '@Url.Action("Eliminar", "TiposProductos")',        // URL a la acción
+                '@Url.Action("Eliminar", "Productos")',        // URL a la acción
 			    { codigo: value },
 			    function (data) {                    // Función de retorno exitoso
-			        
+
 			        if (data.Result == "OK") {
-			            
+
 			            MostrarMensaje('prueba', '', 'I');
 			        }
 			        else {
@@ -57,12 +56,15 @@
                 );
 
             $('#' + mainTableContainer).jtable('load', {
-                tDesTipoProductoBus: $('#DesTipoProductoBus').val(),
-                tCategoriaProductoBus: $('#CategoriaProductoBus').val(),
+                tCodProductoBus: $('#CodProducto').val(),
+                tDesProductoBus: $('#DesProducto').val(),
+                tCategoriaProductoBus: $('#CategoriaProducto').val(),
+                tTipoProductoBus: $('#TipoProducto').val(),
+                tMarcaBus: $('#Marca').val()
             });
 
-            }
-        
+        }
+
 
         objetoAcciones.val("");
 
@@ -70,7 +72,7 @@
     }
 </script>
 
-@using (Ajax.BeginForm("Buscar", "TiposProductos", new AjaxOptions
+@using (Ajax.BeginForm("Buscar", "Productos", new AjaxOptions
 {
     HttpMethod = "GET",
     InsertionMode = InsertionMode.Replace,
@@ -80,23 +82,51 @@
     <table>
         <tr>
             <td>
-                <div>@Html.LabelFor(model => model.DesTipoProductoBus)</div>
+                <div>@Html.LabelFor(model => model.CodProducto)</div>
             </td>
 
             <td>
-                <div>@Html.TextBoxFor(model => model.DesTipoProductoBus)</div>
+                <div>@Html.TextBoxFor(model => model.CodProducto)</div>
             </td>
         </tr>
 
-                
+
         <tr>
             <td>
-                <div>@Html.LabelFor(model => model.CategoriaProductoBus)</div>
+                <div>@Html.LabelFor(model => model.DesProducto)</div>
             </td>
 
             <td>
-               <div>@Html.DropDownListFor(model => model.CategoriaProductoBus, new SelectList(ViewBag.ComboCategoriaProducto, "VALUE", "TEXT"), Etiquetas.GenSeleccionar, new { @class = "CampoDropdownlist" })</div>
-           
+                <div>@Html.TextBoxFor(model => model.DesProducto)</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>@Html.LabelFor(model => model.CategoriaProducto)</div>
+            </td>
+            <td>
+                <div>@Html.DropDownListFor(model => model.CategoriaProducto, new SelectList(ViewBag.ComboCategoriaProducto, "VALUE", "TEXT"), Etiquetas.GenSeleccionar)</div>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div>@Html.LabelFor(model => model.TipoProducto)</div>
+            </td>
+            <td>
+                <div>@Html.DropDownListFor(model => model.TipoProducto, new SelectList(ViewBag.ComboTipoProducto, "VALUE", "TEXT"), Etiquetas.GenSeleccionar)</div>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div>@Html.LabelFor(model => model.Marca)</div>
+            </td>
+            <td>
+                <div>@Html.DropDownListFor(model => model.Marca, new SelectList(ViewBag.ComboMarca, "VALUE", "TEXT"), Etiquetas.GenSeleccionar)</div>
+
             </td>
         </tr>
     </table>
@@ -107,14 +137,13 @@
                 <div>
                     <button id="btnBuscar" type="submit">Buscar</button>
                     <button id="btnNuevo" onclick="IrEditar('Editar', 0)">Nuevo</button>
-             @*       <button id="btnSalir" onclick="javascript:cerrarPagina();">Salir</button>*@
                 </div>
             </td>
         </tr>
     </table>
 }
 
-<div id="TiposProductosTableContainer" class="contenedorGrid"></div>
+<div id="ProductosTableContainer" class="contenedorGrid"></div>
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -145,20 +174,51 @@
 
                     }
                 },
-                ConTipoProducto: {
+                ConProducto: {
                     key: true,
                     width: '10%',
+                    visibility: "hidden"
+                },
+                EstadoPorProceso: {
+                    key: false,
+                    width: '10%',
+                    title: "Estado"
+                },
+                CodProducto: {
+                    key: false,
                     title: "Código"
                 },
-                DesTipoProducto: {
+                DesProducto: {
                     key: false,
-                    //width: '80%',
                     title: "Descripción"
                 },
-                DesCategoriaProducto: {
+                MinimoStock: {
                     key: false,
-                    //width: '80%',
+                    title: "Mínimo Stock"
+                },
+                MaximoStock: {
+                    key: false,
+                    title: "Máximo Stock"
+                }
+                ,
+                NuevoInventario: {
+                    key: false,
+                    title: "Nuevo Inventario"
+                }
+                ,
+                CategoriaProducto: {
+                    key: false,
                     title: "Categoría Producto"
+                }
+                ,
+                TipoProducto: {
+                    key: false,
+                    title: "Tipo Producto"
+                }
+                ,
+                Marca: {
+                    key: false,
+                    title: "Marca"
                 }
             }
         });
@@ -167,8 +227,11 @@
             e.preventDefault();
 
             $('#' + mainTableContainer).jtable('load', {
-                tDesTipoProductoBus: $('#DesTipoProductoBus').val(),
-                tCategoriaProductoBus: $('#CategoriaProductoBus').val(),
+                tCodProductoBus: $('#CodProducto').val(),
+                tDesProductoBus: $('#DesProducto').val(),
+                tCategoriaProductoBus: $('#CategoriaProducto').val(),
+                tTipoProductoBus: $('#TipoProducto').val(),
+                tMarcaBus: $('#Marca').val()
             });
         });
     });

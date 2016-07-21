@@ -45,6 +45,7 @@
     <Compile Include="DTO_Resultado.cs" />
     <Compile Include="DTO_TipoOperacionMantenimiento.cs" />
     <Compile Include="Generales\DTO_CategoriaProducto.cs" />
+    <Compile Include="Generales\DTO_Marcas.cs" />
     <Compile Include="Generales\DTO_ParametrosGenerales.cs" />
     <Compile Include="Generales\DTO_TiposProductos.cs" />
     <Compile Include="IMantenimiento.cs" />

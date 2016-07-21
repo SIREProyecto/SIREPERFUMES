@@ -41,5 +41,69 @@ namespace SIRE.Administracion.UI.MVC.Utilitarios
 
         }
 
+        //COMBOBOX Tipos de Productos
+
+        public static List<SelectListItem> DropdownlistTiposProductos()
+        {
+
+            var lista = SIRE.Administracion.Bs.LogicaNegocio.Instancia.ComboTiposProductos();
+
+            var items = new List<SelectListItem>();
+
+            try
+            {
+                foreach (var p in lista)
+                {
+                    var s = new SelectListItem();
+                    s.Text = p.ConTipoProducto.ToString();
+                    s.Value = p.DesTipoProducto.ToString();
+
+
+                    items.Add(s);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+
+            return items;
+
+        }
+
+        //COMBOBOX Marcas
+
+        public static List<SelectListItem> DropdownlistMarcas()
+        {
+
+            var lista = SIRE.Administracion.Bs.LogicaNegocio.Instancia.ComboMarcas();
+
+            var items = new List<SelectListItem>();
+
+            try
+            {
+                foreach (var p in lista)
+                {
+                    var s = new SelectListItem();
+                    s.Text = p.ConMarca.ToString();
+                    s.Value = p.DesMarca.ToString();
+
+
+                    items.Add(s);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+
+            return items;
+
+        }
+
     }
 }

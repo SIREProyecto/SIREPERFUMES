@@ -34,6 +34,7 @@ namespace SIRE.Administracion.Ds
         DTO_TiposProductos IngresarTiposProductos(DTO_TiposProductos dto);
         DTO_TiposProductos EditarTiposProductos(DTO_TiposProductos dto);
         DTO_TiposProductos EliminarTiposProductos(DTO_TiposProductos dto);
+        List<DTO_TiposProductos> ComboTiposProductos();
         #endregion
 
         #region Categoria Productos
@@ -48,6 +49,12 @@ namespace SIRE.Administracion.Ds
         DTO_Productos IngresarProductos(DTO_Productos dto);
         DTO_Productos EditarProductos(DTO_Productos dto);
         DTO_Productos EliminarProductos(DTO_Productos dto);
+        #endregion
+
+        #region Marcas
+
+        List<DTO_Marcas> ComboMarcas();
+
         #endregion
     }
 }
